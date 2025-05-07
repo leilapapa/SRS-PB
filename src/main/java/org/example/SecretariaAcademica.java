@@ -5,7 +5,6 @@ public class SecretariaAcademica extends Usuario {
         super(nome, email, senha, TipoUsuario.SECRETARIA);
     }
 
-
     public void cadastrarCurso(Curso curso) {}
     public void cadastrarDisciplina(Disciplina disciplina) {}
     public void cadastrarTurma(Turma turma) {}

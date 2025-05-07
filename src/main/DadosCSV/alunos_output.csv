@@ -1,0 +1,4 @@
+matricula,nome,email
+Aluno{matricula='2024001', turmas=0, historico=OK, nome='Leandro', email='leandro@email.com'}
+Aluno{matricula='2024002', turmas=0, historico=OK, nome='Leilane', email='leilane@email.com'}
+Aluno{matricula='2024003', turmas=0, historico=OK, nome='Victor', email='victor@email.com'}
