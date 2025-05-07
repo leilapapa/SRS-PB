@@ -1,4 +1,3 @@
 package org.example;
 
-public class TituloProfessor {
-}
+public enum TituloProfessor { CONTRATADO, PROVISORIO }

@@ -1,4 +1,3 @@
 package org.example;
 
-public class TipoUsuario {
-}
+public enum TipoUsuario { ALUNO, PROFESSOR, SECRETARIA }

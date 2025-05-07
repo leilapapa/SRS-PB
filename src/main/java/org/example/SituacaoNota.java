@@ -1,4 +1,3 @@
 package org.example;
 
-public class SituacaoNota {
-}
+public enum SituacaoNota { APROVADO, REPROVADO }

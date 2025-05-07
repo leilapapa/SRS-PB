@@ -1,4 +1,3 @@
 package org.example;
 
-public class DiaSemana {
-}
+public enum DiaSemana { SEG, TER, QUA, QUI, SEX, SAB }
