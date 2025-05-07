@@ -40,10 +40,17 @@ public class Aluno extends Usuario {
     }
 
     //metodos
-    public void cancelarMatricula() {}
+    public void solicitarCancelamento(SecretariaAcademica secretaria) {
+        secretaria.processarCancelamento(this);
+    }
+
+    //metodo interno que vai ser usado pela classe Secretaria Academica
+    protected void cancelarMatricula() {
+        turmas.clear();
+    }
 
     public List<Disciplina> visualizarGradeDisciplinas() {
-        return new ArrayList<>(); //checar
+        return new ArrayList<>();
     }
 
     @Override

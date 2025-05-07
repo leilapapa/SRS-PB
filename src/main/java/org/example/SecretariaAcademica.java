@@ -10,4 +10,7 @@ public class SecretariaAcademica extends Usuario {
     public void cadastrarDisciplina(Disciplina disciplina) {}
     public void cadastrarTurma(Turma turma) {}
     public boolean verificarConclusaoAluno(Aluno aluno) { return false; }
+    public void processarCancelamento(Aluno aluno) {
+        aluno.cancelarMatricula();
+    }
 }
