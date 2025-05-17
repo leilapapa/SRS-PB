@@ -1,6 +1,7 @@
 package org.example;
 
 public final class Matricula {
+    private int id;
     private String dataMatricula;
     private String status;
     private Aluno aluno;
@@ -11,7 +12,15 @@ public final class Matricula {
         this.aluno = aluno;
     }
 
-    //getter setter
+    // Getters e Setters
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getDataMatricula() {
         return dataMatricula;
     }
@@ -39,7 +48,8 @@ public final class Matricula {
     @Override
     public String toString() {
         return "Matricula{" +
-                "dataMatricula='" + dataMatricula + '\'' +
+                "id=" + id +
+                ", dataMatricula='" + dataMatricula + '\'' +
                 ", status='" + status + '\'' +
                 ", aluno='" + (aluno != null ? aluno.getNome() : "null") + '\'' +
                 '}';

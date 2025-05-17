@@ -1,4 +1,4 @@
-package org.example; //comentario
+package org.example;
 
 import java.util.*;
 
@@ -14,7 +14,20 @@ public class Aluno extends Usuario {
         this.historico = new Historico(this);
     }
 
+    // Construtor adicional para carregar do banco de dados
+    public Aluno(int id, String nome, String email, String senha, String dataMatricula, String status) {
+        super(nome, email, senha, TipoUsuario.ALUNO);
+        this.matricula = new Matricula(dataMatricula, status, this);
+        this.matricula.setId(id);
+        this.turmas = new ArrayList<>();
+        this.historico = new Historico(this);
+    }
+
     // Getters e setters
+    public int getId() {
+        return matricula.getId();
+    }
+
     public Matricula getMatricula() {
         return matricula;
     }
@@ -39,25 +52,21 @@ public class Aluno extends Usuario {
         this.historico = historico;
     }
 
-    //metodos
-
-    //aluuno pede o cancelamento, mas não executa diretamente
+    // Métodos de negócio
     public void solicitarCancelamento(SecretariaAcademica secretaria) {
         secretaria.processarCancelamento(this);
     }
 
-    //método interno, só a secretaria pode usar este método diretamente
     protected void cancelarMatricula() {
         turmas.clear();
-        this.matricula.setStatus("cancelada");//controla o status no objeto Matricula
+        this.matricula.setStatus("cancelada");
     }
 
-
     public List<Disciplina> visualizarGradeDisciplinas() {
-        List<Disciplina> disciplinas = new ArrayList<>();//cria nova lista de disciplinas
-        for (Turma turma : turmas) {//percorre as turamas que o aluno esta matriculado
-            disciplinas.addAll(turma.getDisciplina() != null ?  //verifica em cada turma se tem uma disciplina associada
-                    List.of(turma.getDisciplina()) : List.of()); //se existir a disciplina, adiciona na lista final. senao nao adiciona nada
+        List<Disciplina> disciplinas = new ArrayList<>();
+        for (Turma turma : turmas) {
+            disciplinas.addAll(turma.getDisciplina() != null ?
+                    List.of(turma.getDisciplina()) : List.of());
         }
         return disciplinas;
     }
@@ -69,7 +78,8 @@ public class Aluno extends Usuario {
     @Override
     public String toString() {
         return "Aluno{" +
-                "matricula=" + (matricula != null ? matricula.getDataMatricula() : "null") +
+                "id=" + getId() +
+                ", matricula=" + (matricula != null ? matricula.getDataMatricula() : "null") +
                 ", status=" + (matricula != null ? matricula.getStatus() : "null") +
                 ", turmas=" + (turmas != null ? turmas.size() : 0) +
                 ", historico=" + (historico != null ? "OK" : "null") +
