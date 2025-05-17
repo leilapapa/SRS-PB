@@ -1,0 +1,52 @@
+📌 INSTRUÇÕES DE GIT: COMMIT PARA DEV E MERGE COM MASTER
+
+Este arquivo explica como trabalhar com o Git no seu projeto, usando dois branches: `dev` e `master`.
+
+──────────────────────────────────────────────
+✅ COMO FAZER COMMIT NO BRANCH DEV
+
+1. Verifique se está no branch `dev`:
+   git branch
+
+2. Se não estiver, troque para ele:
+   git checkout dev
+
+3. Adicione as alterações:
+   git add .
+
+4. Faça o commit com mensagem clara:
+   git commit -m "sua mensagem aqui"
+
+5. Envie para o GitHub:
+   git push origin dev
+
+
+──────────────────────────────────────────────
+✅ COMO FAZER MERGE DO DEV PARA O MASTER
+
+⚠️ Antes de tudo, garanta que todos os commits estejam no `dev` e que ele esteja atualizado.
+
+1. Troque para o branch master:
+   git checkout master
+
+2. Traga as atualizações mais recentes:
+   git pull origin master
+
+3. Faça o merge do `dev`:
+   git merge dev
+
+4. Resolva conflitos se existirem (manualmente)
+
+5. Após o merge, envie para o GitHub:
+   git push origin master
+
+──────────────────────────────────────────────
+💡 DICAS
+- Use `git status` para verificar arquivos modificados
+- Use `git log --oneline` para ver histórico de commits
+- Faça merge apenas quando estiver confiante de que o `dev` está estável
+
+──────────────────────────────────────────────
+
+✔️ Pronto! Agora você sabe como manter seu repositório organizado com fluxo dev → master.
+

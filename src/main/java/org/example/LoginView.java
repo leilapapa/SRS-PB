@@ -51,24 +51,24 @@ public class LoginView {
             String email = campoEmail.getText().trim();
             String senha = new String(campoSenha.getPassword()).trim();
 
-            if (!Validador.validarEmail(email)) {
-                mensagemStatus.setText("Erro: E-mail não cadastrado.");
-            } else {
-                String resultadoSenha = Validador.validarSenha(senha);
-                if (resultadoSenha.equals("OK")) {
-                    mensagemStatus.setText("");
-                    JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                    frame.dispose();
-                    Aluno aluno = new Aluno("Maria", "maria@email.com", "123", "20231234");
-                    SecretariaAcademica secretaria = new SecretariaAcademica("Secretaria", "sec@email.com", "admin");
+            //busca o aluno na lista carregada do CSV
+            Aluno alunoLogado = RepositorioDeAlunos.alunos.stream()
+                    .filter(a -> a.getEmail().equals(email) && a.getSenha().equals(senha))
+                    .findFirst()
+                    .orElse(null);
 
-                    AlunoMenuView.criarMenuAluno(aluno, secretaria);
-                } else {
-                    mensagemStatus.setText(resultadoSenha);
-                }
+
+            if (alunoLogado != null) {
+                mensagemStatus.setText("");
+                JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                frame.dispose();
+
+                SecretariaAcademica secretaria = new SecretariaAcademica("Secretaria", "sec@email.com", "admin");
+                AlunoMenuView.criarMenuAluno(alunoLogado, secretaria);
+            } else {
+                mensagemStatus.setText("Erro: e-mail ou senha inválidos.");
             }
         });
-
         frame.setVisible(true);
     }
 }

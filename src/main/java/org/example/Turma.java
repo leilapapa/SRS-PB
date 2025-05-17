@@ -8,6 +8,7 @@ public class Turma {
     private String horario;
     private Professor professor;
     private List<Aluno> alunos;
+    private Disciplina disciplina;
 
     public Turma(String codigoTurma, Set<DiaSemana> diasSemana, String horario, Professor professor) {
         this.codigoTurma = codigoTurma;
@@ -15,6 +16,14 @@ public class Turma {
         this.horario = horario;
         this.professor = professor;
         this.alunos = new ArrayList<>();
+    }
+
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
     }
 
     //getter setter
