@@ -22,9 +22,10 @@ public class AlunoService {
         JOptionPane.showMessageDialog(null, notasFormatadas.toString(), "Notas", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void cancelarMatricula() {
+    public static void cancelarMatricula(Aluno aluno, SecretariaAcademica secretaria) {
         int confirmacao = JOptionPane.showConfirmDialog(null, "Tem certeza que deseja cancelar sua matrícula?", "Cancelar Matrícula", JOptionPane.YES_NO_OPTION);
         if (confirmacao == JOptionPane.YES_OPTION) {
+            aluno.solicitarCancelamento(secretaria);
             JOptionPane.showMessageDialog(null, "Matrícula cancelada com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0); // Fecha o programa
         }

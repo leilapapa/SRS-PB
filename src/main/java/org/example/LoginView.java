@@ -59,7 +59,10 @@ public class LoginView {
                     mensagemStatus.setText("");
                     JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                     frame.dispose();
-                    AlunoMenuView.criarMenuAluno();
+                    Aluno aluno = new Aluno("Maria", "maria@email.com", "123", "20231234");
+                    SecretariaAcademica secretaria = new SecretariaAcademica("Secretaria", "sec@email.com", "admin");
+
+                    AlunoMenuView.criarMenuAluno(aluno, secretaria);
                 } else {
                     mensagemStatus.setText(resultadoSenha);
                 }

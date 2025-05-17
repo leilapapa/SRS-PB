@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class AlunoMenuView {
 
-    public static void criarMenuAluno() {
+    public static void criarMenuAluno(Aluno aluno, SecretariaAcademica secretaria) {
         JFrame frame = new JFrame("Menu do Aluno");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(400, 300);
@@ -33,7 +33,7 @@ public class AlunoMenuView {
 
         JButton botaoCancelar = new JButton("Cancelar Matrícula");
         botaoCancelar.setFont(new Font("Arial", Font.PLAIN, 14));
-        botaoCancelar.addActionListener(e -> AlunoService.cancelarMatricula());
+        botaoCancelar.addActionListener(e -> AlunoService.cancelarMatricula(aluno, secretaria));
         painelPrincipal.add(botaoCancelar);
 
         frame.add(painelPrincipal, BorderLayout.CENTER);

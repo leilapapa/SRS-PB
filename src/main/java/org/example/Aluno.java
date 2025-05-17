@@ -40,11 +40,11 @@ public class Aluno extends Usuario {
     }
 
     //metodos
+    //aluuno pede o cancelamento, mas não executa diretamente
     public void solicitarCancelamento(SecretariaAcademica secretaria) {
         secretaria.processarCancelamento(this);
     }
-
-    //metodo interno que vai ser usado pela classe Secretaria Academica
+    //método interno, só a secretaria pode usar este método diretamente
     protected void cancelarMatricula() {
         turmas.clear();
     }
