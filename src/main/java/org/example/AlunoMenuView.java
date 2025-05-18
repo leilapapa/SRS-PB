@@ -42,7 +42,7 @@ public class AlunoMenuView {
         JButton botaoGrade = new JButton("Visualizar Grade de Disciplinas");
         botaoGrade.setFont(new Font("Arial", Font.PLAIN, 14));
         botaoGrade.setAlignmentX(Component.CENTER_ALIGNMENT);
-        botaoGrade.addActionListener(e -> AlunoService.visualizarGrade());
+        botaoGrade.addActionListener(e -> AlunoService.visualizarGrade(aluno));
         painelPrincipal.add(botaoGrade);
 
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 10)));

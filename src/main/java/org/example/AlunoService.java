@@ -1,16 +1,31 @@
 package org.example;
 
 import javax.swing.*;
+import java.util.List;
 
 public class AlunoService {
 
-    public static void visualizarGrade() {
-        String[] disciplinas = {"Matemática", "Português", "História", "Ciências"};
-        StringBuilder grade = new StringBuilder("Grade de Disciplinas:\n\n");
-        for (String disciplina : disciplinas) {
-            grade.append("- ").append(disciplina).append("\n");
+    public static void visualizarGrade(Aluno aluno) {
+        List<Turma> turmas = aluno.getTurmas();
+        if (turmas == null || turmas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Você não está matriculado em nenhuma turma.",
+                    "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
-        JOptionPane.showMessageDialog(null, grade.toString(), "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
+
+        StringBuilder grade = new StringBuilder("Grade de Disciplinas:\n\n");
+        for (Turma turma : turmas) {
+            grade.append("Turma: ").append(turma.getCodigoTurma()).append("\n");
+            grade.append("Disciplina: ").append(turma.getDisciplina().getNome()).append("\n");
+            grade.append("Dias: ").append(turma.getDiasSemana()).append("\n");
+            grade.append("Horário: ").append(turma.getHorario()).append("\n");
+            grade.append("Professor: ").append(
+                    turma.getProfessor() != null ? turma.getProfessor().getNome() : "N/A"
+            ).append("\n\n");
+        }
+
+        JOptionPane.showMessageDialog(null, grade.toString(),
+                "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void visualizarNotas() {

@@ -17,7 +17,7 @@ public class AlunoCRUD {
             ResultSet rs = pstmt.executeQuery();
 
             if (rs.next()) {
-                return new Aluno(
+                Aluno aluno = new Aluno(
                         rs.getInt("id"),
                         rs.getString("nome"),
                         rs.getString("email"),
@@ -25,8 +25,13 @@ public class AlunoCRUD {
                         rs.getString("matricula"),
                         rs.getString("status")
                 );
-            }
 
+                // Carrega as turmas do aluno
+                List<Turma> turmas = TurmaCRUD.buscarTurmasDoAluno(aluno.getId());
+                aluno.setTurmas(turmas);
+
+                return aluno;
+            }
         } catch (SQLException e) {
             System.err.println("Erro ao autenticar aluno: " + e.getMessage());
         }

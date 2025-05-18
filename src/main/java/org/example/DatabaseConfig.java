@@ -49,6 +49,13 @@ public class DatabaseConfig {
                 "FOREIGN KEY (aluno_id) REFERENCES aluno(id)," +
                 "FOREIGN KEY (turma_id) REFERENCES turma(id))";
 
+        String sqlSecretaria = "CREATE TABLE IF NOT EXISTS secretaria (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nome TEXT NOT NULL," +
+                "email TEXT NOT NULL UNIQUE," +
+                "senha TEXT NOT NULL," +
+                "tipo TEXT NOT NULL)";
+
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.execute(sqlAluno);
@@ -56,6 +63,7 @@ public class DatabaseConfig {
             stmt.execute(sqlDisciplina);
             stmt.execute(sqlTurma);
             stmt.execute(sqlTurmaAluno);
+            stmt.execute(sqlSecretaria);
 
         } catch (SQLException e) {
             System.err.println("Erro ao criar tabelas: " + e.getMessage());

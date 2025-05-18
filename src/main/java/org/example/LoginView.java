@@ -51,16 +51,30 @@ public class LoginView {
             String email = campoEmail.getText().trim();
             String senha = new String(campoSenha.getPassword()).trim();
 
+            // Tenta autenticar como aluno
             Aluno aluno = AlunoCRUD.autenticar(email, senha);
-
-            if (aluno == null) {
-                mensagemStatus.setText("E-mail ou senha incorretos.");
-            } else {
-                JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+            if (aluno != null) {
+                JOptionPane.showMessageDialog(frame, "Login do aluno realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-                SecretariaAcademica secretaria = new SecretariaAcademica("Secretaria", "sec@email.com", "admin");
+
+                // Autentica secretaria fictícia apenas para repassar o objeto
+                SecretariaAcademica secretaria = SecretariaAcademicaCRUD.autenticar("secretaria@email.com", "admin");
                 AlunoMenuView.criarMenuAluno(aluno, secretaria);
+                return;
             }
+
+            // Tenta autenticar como secretaria
+            SecretariaAcademica secretaria = SecretariaAcademicaCRUD.autenticar(email, senha);
+            if (secretaria != null) {
+                JOptionPane.showMessageDialog(frame, "Login da secretaria realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                frame.dispose();
+
+                // Aqui você pode abrir uma interface futura para a secretaria
+                System.out.println("🔐 Secretaria autenticada com sucesso.");
+                return;
+            }
+
+            mensagemStatus.setText("E-mail ou senha incorretos.");
         });
 
         frame.setVisible(true);
