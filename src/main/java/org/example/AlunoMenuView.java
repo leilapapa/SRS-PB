@@ -8,6 +8,10 @@ import java.awt.*;
 public class AlunoMenuView {
 
     public static void criarMenuAluno(Aluno aluno, SecretariaAcademica secretaria) {
+
+        UIManager.put("OptionPane.yesButtonText", "Sim");
+        UIManager.put("OptionPane.noButtonText", "Não");
+
         JFrame frame = new JFrame("Menu do Aluno");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(450, 400);
