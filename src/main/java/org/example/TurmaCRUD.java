@@ -89,7 +89,7 @@ public class TurmaCRUD {
                 Curso curso = new Curso(
                         rs.getInt("curso_id"),
                         rs.getString("curso_nome"),
-                        rs.getString("codigo_curso")
+                        rs.getString("curso_codigo")
                 );
                 Disciplina disciplina = new Disciplina(
                         rs.getInt("disciplina_id"),
@@ -121,4 +121,20 @@ public class TurmaCRUD {
 
         return turmas;
     }
+
+    //verifica se turma já existe
+    public static boolean turmaExiste(String codigoTurma) {
+        String sql = "SELECT COUNT(*) FROM turma WHERE codigo_turma = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, codigoTurma);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar existência da turma: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

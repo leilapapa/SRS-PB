@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+//conecta o banco e cria as tabelas
 public class DatabaseConfig {
     private static final String URL = "jdbc:sqlite:escola.db";
 
@@ -35,10 +36,10 @@ public class DatabaseConfig {
 
         String sqlTurma = "CREATE TABLE IF NOT EXISTS turma (" +
                 "id INTEGER PRIMARY KEY AUTOINCREMENT," +
-                "codigo_turma TEXT NOT NULL," +
-                "dias_semana TEXT," + // armazenado como string serializada
+                "codigo_turma TEXT NOT NULL UNIQUE," +
+                "dias_semana TEXT," +
                 "horario TEXT," +
-                "professor_nome TEXT," + // simplificando por enquanto
+                "professor_nome TEXT," +
                 "disciplina_id INTEGER," +
                 "FOREIGN KEY (disciplina_id) REFERENCES disciplina(id))";
 

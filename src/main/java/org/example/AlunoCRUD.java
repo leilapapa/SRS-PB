@@ -147,4 +147,22 @@ public class AlunoCRUD {
             System.err.println("Erro ao matricular aluno na turma: " + e.getMessage());
         }
     }
+
+    //verifica se o aluno existe
+    public static boolean alunoExiste(String email) {
+        String sql = "SELECT COUNT(*) FROM aluno WHERE email = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, email);
+            ResultSet rs = pstmt.executeQuery();
+
+            return rs.next() && rs.getInt(1) > 0;
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar existência do aluno: " + e.getMessage());
+            return false;
+        }
+    }
 }

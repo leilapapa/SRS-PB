@@ -44,4 +44,20 @@ public class CursoCRUD {
         }
         return cursos;
     }
+
+    //verifica se o curso ja existe
+    public static boolean cursoExiste(String codigo) {
+        String sql = "SELECT COUNT(*) FROM curso WHERE codigo = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, codigo);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar existência do curso: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

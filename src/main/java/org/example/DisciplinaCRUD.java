@@ -52,4 +52,21 @@ public class DisciplinaCRUD {
         }
         return disciplinas;
     }
+
+    //verifica se a disciplina já existe
+    public static boolean disciplinaExiste(String nome, int cursoId) {
+        String sql = "SELECT COUNT(*) FROM disciplina WHERE nome = ? AND curso_id = ?";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setString(1, nome);
+            pstmt.setInt(2, cursoId);
+            ResultSet rs = pstmt.executeQuery();
+            return rs.next() && rs.getInt(1) > 0;
+        } catch (SQLException e) {
+            System.err.println("Erro ao verificar existência da disciplina: " + e.getMessage());
+            return false;
+        }
+    }
+
 }

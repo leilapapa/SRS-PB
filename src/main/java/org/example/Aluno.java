@@ -2,6 +2,7 @@ package org.example;
 
 import java.util.*;
 
+
 public class Aluno extends Usuario {
     private Matricula matricula;
     private List<Turma> turmas;

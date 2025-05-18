@@ -7,33 +7,30 @@ public class Main {
         // Inicializa o banco
         DatabaseConfig.criarTabelas();
 
-        // Importa cursos e disciplinas a partir do JSON
-        CursoJsonImport.importarCursosParaBanco("src/main/java/org/example/cursos.json");
-
-        // Tenta autenticar antes de criar
+        // Autentica ou cria a secretaria
         SecretariaAcademica secretaria = SecretariaAcademicaCRUD.autenticar("secretaria@email.com", "admin");
 
         if (secretaria == null) {
-            // Se não existe, cria
             secretaria = new SecretariaAcademica("Secretaria", "secretaria@email.com", "admin");
             SecretariaAcademicaCRUD.create(secretaria);
             System.out.println("✅ Secretaria cadastrada.");
+            secretaria = SecretariaAcademicaCRUD.autenticar("secretaria@email.com", "admin");
         } else {
             System.out.println("🔁 Secretaria já cadastrada.");
         }
 
-        SecretariaAcademicaCRUD.listarSecretarias();
-        demonstrarOperacoesCRUD(secretaria);
-
-        // Testa autenticação da secretaria
-        SecretariaAcademica secretariaAutenticada = SecretariaAcademicaCRUD.autenticar("secretaria@email.com", "admin");
-        if (secretariaAutenticada != null) {
+        if (secretaria != null) {
             System.out.println("\n✅ Secretaria autenticada com sucesso!\n");
-            demonstrarOperacoesCRUD(secretariaAutenticada);
         } else {
             System.err.println("❌ Falha na autenticação da secretaria.");
             return;
         }
+
+        //Insere dados usando a secretaria autenticada
+        InserirDadosIniciais.dadosCursoDisciplinasTurmasEAlunos(secretaria);
+
+        //Lista secretaria
+        SecretariaAcademicaCRUD.listarSecretarias();
 
         // Lista os cursos
         List<Curso> cursos = CursoCRUD.readAll();
@@ -59,25 +56,7 @@ public class Main {
                     " | Horário: " + turma.getHorario());
         }
 
-        // Abre a interface de login do aluno
-        LoginView.criarJanelaDeLogin();
-    }
-
-    private static void demonstrarOperacoesCRUD(SecretariaAcademica secretaria) {
-        List<Aluno> novosAlunos = List.of(
-                new Aluno("Leandro Barbosa", "leandro@email.com", "123", "20231238", "ativo"),
-                new Aluno("Leilane Papa", "leilane@email.com", "123", "20231239", "ativo"),
-                new Aluno("Victor Cezar", "victor@email.com", "123", "20231239", "ativo")
-        );
-
-        for (Aluno a : novosAlunos) {
-            if (AlunoCRUD.autenticar(a.getEmail(), a.getSenha()) == null) {
-                secretaria.cadastrarAluno(a);
-            } else {
-                System.out.println("🔁 Aluno já cadastrado: " + a.getEmail());
-            }
-        }
-
+        // Lista alunos
         List<Aluno> alunos = AlunoCRUD.readAll();
         System.out.println("\n📋 Lista de alunos cadastrados:");
         for (Aluno a : alunos) {
@@ -88,5 +67,8 @@ public class Main {
             System.out.println("Status: " + a.getMatricula().getStatus());
             System.out.println("-------------------------------");
         }
+
+        // Abre a interface de login do aluno
+        LoginView.criarJanelaDeLogin();
     }
 }
