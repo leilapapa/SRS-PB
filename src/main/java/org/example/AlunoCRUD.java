@@ -126,4 +126,20 @@ public class AlunoCRUD {
         }
         return null;
     }
+
+    //associa um aluno a uma turma
+    public static void matricularEmTurma(int alunoId, int turmaId) {
+        String sql = "INSERT INTO turma_aluno (aluno_id, turma_id) VALUES (?, ?)";
+
+        try (Connection conn = DatabaseConfig.getConnection();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setInt(1, alunoId);
+            pstmt.setInt(2, turmaId);
+            pstmt.executeUpdate();
+
+        } catch (SQLException e) {
+            System.err.println("Erro ao matricular aluno na turma: " + e.getMessage());
+        }
+    }
 }
