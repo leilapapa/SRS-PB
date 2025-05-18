@@ -3,6 +3,8 @@ package org.example;
 import java.util.*;
 
 public final class Disciplina {
+    private int id;
+    private Curso curso;
     private String nome;
     private int vagas;
     private List<Turma> turmas;
@@ -15,7 +17,25 @@ public final class Disciplina {
         this.preRequisitos = new ArrayList<>();
     }
 
+    //Construtor adicional para carregar do banco de dados
+    public Disciplina(int id, String nome, int vagas, Curso curso) {
+        this.id = id;
+        this.nome = nome;
+        this.vagas = vagas;
+        this.curso = curso;
+        this.turmas = new ArrayList<>();
+        this.preRequisitos = new ArrayList<>();
+    }
+
     //getter setter
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getNome() {
         return nome;
     }
@@ -30,6 +50,14 @@ public final class Disciplina {
 
     public void setVagas(int vagas) {
         this.vagas = vagas;
+    }
+
+    public Curso getCurso() {
+        return curso;
+    }
+
+    public void setCurso(Curso curso) {
+        this.curso = curso;
     }
 
     public List<Turma> getTurmas() {
@@ -48,7 +76,6 @@ public final class Disciplina {
         this.preRequisitos = preRequisitos;
     }
 
-    //metodo
     public List<Turma> listarTurmas() {
         return turmas;
     }
@@ -56,8 +83,10 @@ public final class Disciplina {
     @Override
     public String toString() {
         return "Disciplina{" +
-                "nome='" + nome + '\'' +
+                "id=" + id +
+                ", nome='" + nome + '\'' +
                 ", vagas=" + vagas +
+                ", curso=" + (curso != null ? curso.getNome() : "null") +
                 ", turmas=" + (turmas != null ? turmas.size() : 0) +
                 ", preRequisitos=" + (preRequisitos != null ? preRequisitos.size() : 0) +
                 '}';

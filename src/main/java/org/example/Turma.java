@@ -3,6 +3,7 @@ package org.example;
 import java.util.*;
 
 public class Turma {
+    private int id;
     private String codigoTurma;
     private Set<DiaSemana> diasSemana;
     private String horario;
@@ -18,15 +19,26 @@ public class Turma {
         this.alunos = new ArrayList<>();
     }
 
-    public Disciplina getDisciplina() {
-        return disciplina;
-    }
-
-    public void setDisciplina(Disciplina disciplina) {
+    //Construtor adicional para carregar do banco de dados
+    public Turma(int id, String codigoTurma, Set<DiaSemana> diasSemana, String horario, Professor professor, Disciplina disciplina) {
+        this.id = id;
+        this.codigoTurma = codigoTurma;
+        this.diasSemana = diasSemana;
+        this.horario = horario;
+        this.professor = professor;
         this.disciplina = disciplina;
+        this.alunos = new ArrayList<>();
     }
 
     //getter setter
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public String getCodigoTurma() {
         return codigoTurma;
     }
@@ -67,7 +79,14 @@ public class Turma {
         this.alunos = alunos;
     }
 
-    //metodo
+    public Disciplina getDisciplina() {
+        return disciplina;
+    }
+
+    public void setDisciplina(Disciplina disciplina) {
+        this.disciplina = disciplina;
+    }
+
     public List<Aluno> listarAlunos() {
         return alunos;
     }
@@ -75,10 +94,12 @@ public class Turma {
     @Override
     public String toString() {
         return "Turma{" +
-                "codigoTurma='" + codigoTurma + '\'' +
+                "id=" + id +
+                ", codigoTurma='" + codigoTurma + '\'' +
                 ", diasSemana=" + diasSemana +
                 ", horario='" + horario + '\'' +
                 ", professor=" + (professor != null ? professor.getNome() : "null") +
+                ", disciplina=" + (disciplina != null ? disciplina.getNome() : "null") +
                 ", alunos=" + (alunos != null ? alunos.size() : 0) +
                 '}';
     }
