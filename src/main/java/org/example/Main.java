@@ -29,7 +29,6 @@ public class Main {
         //Insere dados usando a secretaria autenticada
         InserirDadosIniciais.dadosCursoDisciplinasTurmasEAlunos(secretaria);
 
-        //Lista secretaria
         SecretariaAcademicaCRUD.listarSecretarias();
 
         // Lista os cursos

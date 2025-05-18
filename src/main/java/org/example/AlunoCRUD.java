@@ -64,7 +64,7 @@ public class AlunoCRUD {
         }
     }
 
-    public static void update(Aluno aluno) {
+    public static void atualizarAluno(Aluno aluno) {
         String sql = "UPDATE aluno SET nome = ?, email = ?, senha = ?, matricula = ?, status = ? WHERE id = ?";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -107,7 +107,7 @@ public class AlunoCRUD {
         return alunos;
     }
 
-    public static Aluno readById(int id) {
+    public static Aluno buscarAlunoPorId(int id) {
         String sql = "SELECT * FROM aluno WHERE id = ?";
         try (Connection conn = DatabaseConfig.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {

@@ -49,13 +49,19 @@ public class InserirDadosIniciais {
         for (Aluno a : novosAlunos) {
             if (AlunoCRUD.autenticar(a.getEmail(), a.getSenha()) == null) {
                 secretaria.cadastrarAluno(a);
-                secretaria.matricularAlunoEmTurma(a, t1);
-                secretaria.matricularAlunoEmTurma(a, t2);
-                secretaria.matricularAlunoEmTurma(a, t3);
+                secretaria.matricularAlunoEmTurma(a, t1); // Matricula todos os alunos na turma JAVA por padrão
             } else {
                 System.out.println("🔁 Aluno já cadastrado: " + a.getEmail());
             }
         }
+
+        // Imprime dados da secretaria cadastrada
+        System.out.println("\n📋 Secretaria cadastrada:");
+        System.out.println("ID: " + secretaria.getId());
+        System.out.println("Nome: " + secretaria.getNome());
+        System.out.println("Email: " + secretaria.getEmail());
+        System.out.println("Tipo: " + secretaria.getTipo());
+        System.out.println("-------------------------------");
 
         System.out.println("✅ Dados iniciais de cursos, disciplinas, turmas e alunos inseridos com sucesso.");
     }
