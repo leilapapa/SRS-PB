@@ -1,0 +1,32 @@
+//para simulacao no terminal pq isso nao vai ser usado aqui no Main. Retirar dps!
+    private static void demonstrarOperacoesCRUD() {
+        // Exemplo de criação de aluno manual
+        Aluno novoAluno = new Aluno(
+                "Maria Oliveira",
+                "maria@email.com",
+                "senha123",
+                "2023-05-20",
+                "ativo"
+        );
+        AlunoCRUD.create(novoAluno);
+        System.out.println("\nNovo aluno criado com ID: " + novoAluno.getId());
+
+        // Buscar todos os alunos
+        List<Aluno> todosAlunos = AlunoCRUD.readAll();
+        System.out.println("\nLista de todos os alunos:");
+        todosAlunos.forEach(aluno -> System.out.println(aluno.getNome() + " - " + aluno.getEmail()));
+
+        // Buscar um aluno específico por ID
+        if (!todosAlunos.isEmpty()) {
+            Aluno primeiroAluno = AlunoCRUD.readById(todosAlunos.get(0).getId());
+            System.out.println("\nPrimeiro aluno encontrado:");
+            System.out.println(primeiroAluno);
+
+            // Atualizar um aluno
+            primeiroAluno.getMatricula().setStatus("inativo");
+            AlunoCRUD.update(primeiroAluno);
+            System.out.println("\nStatus do aluno atualizado:");
+            System.out.println(AlunoCRUD.readById(primeiroAluno.getId()));
+        }
+    }
+}

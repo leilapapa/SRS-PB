@@ -7,17 +7,17 @@ public class Aluno extends Usuario {
     private List<Turma> turmas;
     private Historico historico;
 
-    public Aluno(String nome, String email, String senha, String dataMatricula, String status) {
+    public Aluno(String nome, String email, String senha, String matricula, String status) {
         super(nome, email, senha, TipoUsuario.ALUNO);
-        this.matricula = new Matricula(dataMatricula, status, this);
+        this.matricula = new Matricula(matricula, status, this);
         this.turmas = new ArrayList<>();
         this.historico = new Historico(this);
     }
 
     // Construtor adicional para carregar do banco de dados
-    public Aluno(int id, String nome, String email, String senha, String dataMatricula, String status) {
+    public Aluno(int id, String nome, String email, String senha, String matricula, String status) {
         super(nome, email, senha, TipoUsuario.ALUNO);
-        this.matricula = new Matricula(dataMatricula, status, this);
+        this.matricula = new Matricula(matricula, status, this);
         this.matricula.setId(id);
         this.turmas = new ArrayList<>();
         this.historico = new Historico(this);
@@ -79,7 +79,7 @@ public class Aluno extends Usuario {
     public String toString() {
         return "Aluno{" +
                 "id=" + getId() +
-                ", matricula=" + (matricula != null ? matricula.getDataMatricula() : "null") +
+                ", matricula=" + (matricula != null ? matricula.getMatricula() : "null") +
                 ", status=" + (matricula != null ? matricula.getStatus() : "null") +
                 ", turmas=" + (turmas != null ? turmas.size() : 0) +
                 ", historico=" + (historico != null ? "OK" : "null") +

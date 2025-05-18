@@ -18,7 +18,7 @@ public class DatabaseConfig {
                 "nome TEXT NOT NULL," +
                 "email TEXT NOT NULL UNIQUE," +
                 "senha TEXT NOT NULL," +
-                "data_matricula TEXT NOT NULL," +
+                "matricula TEXT NOT NULL," +
                 "status TEXT NOT NULL)";
 
         String sqlTurmaAluno = "CREATE TABLE IF NOT EXISTS turma_aluno (" +

@@ -2,12 +2,12 @@ package org.example;
 
 public final class Matricula {
     private int id;
-    private String dataMatricula;
+    private String matricula;
     private String status;
     private Aluno aluno;
 
-    public Matricula(String dataMatricula, String status, Aluno aluno) {
-        this.dataMatricula = dataMatricula;
+    public Matricula(String matricula, String status, Aluno aluno) {
+        this.matricula = matricula;
         this.status = status;
         this.aluno = aluno;
     }
@@ -21,12 +21,12 @@ public final class Matricula {
         this.id = id;
     }
 
-    public String getDataMatricula() {
-        return dataMatricula;
+    public String getMatricula  () {
+        return matricula;
     }
 
-    public void setDataMatricula(String dataMatricula) {
-        this.dataMatricula = dataMatricula;
+    public void setMatricula (String matricula) {
+        this.matricula = matricula;
     }
 
     public String getStatus() {
@@ -49,7 +49,7 @@ public final class Matricula {
     public String toString() {
         return "Matricula{" +
                 "id=" + id +
-                ", dataMatricula='" + dataMatricula + '\'' +
+                ", matrícula ='" + matricula + '\'' +
                 ", status='" + status + '\'' +
                 ", aluno='" + (aluno != null ? aluno.getNome() : "null") + '\'' +
                 '}';

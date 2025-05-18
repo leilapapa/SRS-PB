@@ -4,60 +4,39 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // 1. Inicializar o banco de dados
+        //Inicializa o banco
         DatabaseConfig.criarTabelas();
 
-        // 2. Carregar alunos do CSV
-        String caminhoEntrada = "src/main/DadosCSV/alunos.csv";
-        boolean sucesso = AlunoCSVService.carregarAlunosCSV(caminhoEntrada);
+        //Lista de alunos de exemplo (saida no terminal e grava no banco). Excluir escola.db sempre que rodar o main
+        demonstrarOperacoesCRUD();
 
-        if (sucesso) {
-            System.out.println("Alunos carregados com sucesso do CSV!");
-
-            // 3. Demonstração das operações CRUD
-            demonstrarOperacoesCRUD();
-
-            // 4. Iniciar a interface de login
-            LoginView.criarJanelaDeLogin();
-        } else {
-            System.err.println("Falha ao carregar alunos do CSV. Verifique o arquivo.");
-        }
+        //Abre janela de login
+        LoginView.criarJanelaDeLogin();
     }
 
+    //Lista de alunos
     private static void demonstrarOperacoesCRUD() {
-        // Exemplo de criação de aluno manual (além dos carregados do CSV)
-        Aluno novoAluno = new Aluno(
-                "Maria Oliveira",
-                "maria@email.com",
-                "senha123",
-                "2023-05-20",
-                "ativo"
+        List<Aluno> novosAlunos = List.of(
+                new Aluno("Leandro Barbosa", "leandro@email.com", "123", "20231238", "ativo"),
+                new Aluno("Leilane Papa", "leilane@email.com", "123", "20231239", "ativo"),
+                new Aluno("Victor Cezar", "victor@email.com", "123", "20231239", "ativo")
         );
-        AlunoCRUD.create(novoAluno);
-        System.out.println("\nNovo aluno criado com ID: " + novoAluno.getId());
 
-        // Buscar todos os alunos
-        List<Aluno> todosAlunos = AlunoCRUD.readAll();
-        System.out.println("\nLista de todos os alunos:");
-        todosAlunos.forEach(aluno -> System.out.println(aluno.getNome() + " - " + aluno.getEmail()));
-
-        // Buscar um aluno específico por ID
-        if (!todosAlunos.isEmpty()) {
-            Aluno primeiroAluno = AlunoCRUD.readById(todosAlunos.get(0).getId());
-            System.out.println("\nPrimeiro aluno encontrado:");
-            System.out.println(primeiroAluno);
-
-            // Atualizar um aluno
-            primeiroAluno.getMatricula().setStatus("inativo");
-            AlunoCRUD.update(primeiroAluno);
-            System.out.println("\nStatus do aluno atualizado:");
-            System.out.println(AlunoCRUD.readById(primeiroAluno.getId()));
+        for (Aluno a : novosAlunos) {
+            AlunoCRUD.create(a);
         }
 
-        // Exemplo de matrícula em turma (assumindo que existe turma com ID 1)
-        if (novoAluno.getId() > 0) {
-            AlunoCRUD.matricularEmTurma(novoAluno.getId(), 1);
-            System.out.println("\nAluno matriculado na turma 1");
+        //Mostra no terminal
+        List<Aluno> alunos = AlunoCRUD.readAll();
+
+        System.out.println("\n📋 Lista de alunos cadastrados:");
+        for (Aluno a : alunos) {
+            System.out.println("ID: " + a.getId());
+            System.out.println("Nome: " + a.getNome());
+            System.out.println("Email: " + a.getEmail());
+            System.out.println("Matrícula: " + a.getMatricula().getMatricula());
+            System.out.println("Status: " + a.getMatricula().getStatus());
+            System.out.println("-------------------------------");
         }
     }
 }

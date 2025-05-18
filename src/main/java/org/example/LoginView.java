@@ -51,24 +51,18 @@ public class LoginView {
             String email = campoEmail.getText().trim();
             String senha = new String(campoSenha.getPassword()).trim();
 
-            //busca o aluno na lista carregada do CSV
-            Aluno alunoLogado = RepositorioDeAlunos.alunos.stream()
-                    .filter(a -> a.getEmail().equals(email) && a.getSenha().equals(senha))
-                    .findFirst()
-                    .orElse(null);
+            Aluno aluno = AlunoCRUD.autenticar(email, senha);
 
-
-            if (alunoLogado != null) {
-                mensagemStatus.setText("");
+            if (aluno == null) {
+                mensagemStatus.setText("E-mail ou senha incorretos.");
+            } else {
                 JOptionPane.showMessageDialog(frame, "Login realizado com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
                 frame.dispose();
-
                 SecretariaAcademica secretaria = new SecretariaAcademica("Secretaria", "sec@email.com", "admin");
-                AlunoMenuView.criarMenuAluno(alunoLogado, secretaria);
-            } else {
-                mensagemStatus.setText("Erro: e-mail ou senha inválidos.");
+                AlunoMenuView.criarMenuAluno(aluno, secretaria);
             }
         });
+
         frame.setVisible(true);
     }
 }
