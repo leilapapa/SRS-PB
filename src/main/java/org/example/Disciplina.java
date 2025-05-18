@@ -10,9 +10,10 @@ public final class Disciplina {
     private List<Turma> turmas;
     private List<Disciplina> preRequisitos;
 
-    public Disciplina(String nome, int vagas) {
+    public Disciplina(String nome, int vagas, Curso curso) {
         this.nome = nome;
         this.vagas = vagas;
+        this.curso = curso;
         this.turmas = new ArrayList<>();
         this.preRequisitos = new ArrayList<>();
     }

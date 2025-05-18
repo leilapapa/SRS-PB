@@ -21,6 +21,27 @@ public class DatabaseConfig {
                 "matricula TEXT NOT NULL," +
                 "status TEXT NOT NULL)";
 
+        String sqlCurso = "CREATE TABLE IF NOT EXISTS curso (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nome TEXT NOT NULL," +
+                "codigo TEXT NOT NULL UNIQUE)";
+
+        String sqlDisciplina = "CREATE TABLE IF NOT EXISTS disciplina (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "nome TEXT NOT NULL," +
+                "vagas INTEGER NOT NULL," +
+                "curso_id INTEGER NOT NULL," +
+                "FOREIGN KEY (curso_id) REFERENCES curso(id))";
+
+        String sqlTurma = "CREATE TABLE IF NOT EXISTS turma (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "codigo_turma TEXT NOT NULL," +
+                "dias_semana TEXT," + // armazenado como string serializada
+                "horario TEXT," +
+                "professor_nome TEXT," + // simplificando por enquanto
+                "disciplina_id INTEGER," +
+                "FOREIGN KEY (disciplina_id) REFERENCES disciplina(id))";
+
         String sqlTurmaAluno = "CREATE TABLE IF NOT EXISTS turma_aluno (" +
                 "aluno_id INTEGER," +
                 "turma_id INTEGER," +
@@ -31,7 +52,11 @@ public class DatabaseConfig {
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.execute(sqlAluno);
+            stmt.execute(sqlCurso);
+            stmt.execute(sqlDisciplina);
+            stmt.execute(sqlTurma);
             stmt.execute(sqlTurmaAluno);
+
         } catch (SQLException e) {
             System.err.println("Erro ao criar tabelas: " + e.getMessage());
         }
