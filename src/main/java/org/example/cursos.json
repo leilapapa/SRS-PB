@@ -1,0 +1,179 @@
+{
+  "cursos": [
+    {
+      "categoria": "Desenvolvimento Back-end [25E1-25E2]",
+      "nome": "Desenvolvimento de Serviços Web e Testes com Java [25E2_3]",
+      "periodo": "25E2",
+      "horario": "9:50",
+      "professor": "Victor Amadeu"
+    },
+    {
+      "categoria": "Desenvolvimento Back-end [25E1-25E2]",
+      "nome": "Desenvolvimento Web com .NET e Bases de Dados [25E2_4]",
+      "periodo": "25E2",
+      "horario": "9:50",
+      "professor": "LP"
+    },
+    {
+      "categoria": "Desenvolvimento Back-end [25E1-25E2]",
+      "nome": "Projeto de Bloco: Desenvolvimento Back-end [25E1_5]",
+      "periodo": "25E1",
+      "horario": "9:50",
+      "professor": "Ricardo Fernandes"
+    },
+    {
+      "categoria": "Desenvolvimento Back-end [25E1-25E2]",
+      "nome": "Fundamentos de Desenvolvimento com Java [25E1_1]",
+      "periodo": "25E1",
+      "horario": "9:50",
+      "professor": "Victor Amadeu"
+    },
+    {
+      "categoria": "Desenvolvimento Back-end [25E1-25E2]",
+      "nome": "Fundamentos de Desenvolvimento com C# [25E1_2]",
+      "periodo": "25E1",
+      "horario": "9:50",
+      "professor": "LP"
+    },
+    {
+      "categoria": "Desenvolvimento Front-end com Frameworks [24E3 - 24E4]",
+      "nome": "Projeto de Bloco: Desenvolvimento Front-end com Frameworks [24E3_5]",
+      "periodo": "24E3",
+      "horario": "9:50",
+      "professor": "Cidcley"
+    },
+    {
+      "categoria": "Desenvolvimento Front-end com Frameworks [24E3 - 24E4]",
+      "nome": "Desenvolvimento Web com React [24E4_4]",
+      "periodo": "24E4",
+      "horario": "9:50",
+      "professor": "Victor Amadeu"
+    },
+    {
+      "categoria": "Desenvolvimento Front-end com Frameworks [24E3 - 24E4]",
+      "nome": "Desenvolvimento Mobile com React Native [24E4_3]",
+      "periodo": "24E4",
+      "horario": "9:50",
+      "professor": "Victor Amadeu"
+    },
+    {
+      "categoria": "Desenvolvimento Front-end com Frameworks [24E3 - 24E4]",
+      "nome": "Mobile-first UI com React [24E3_1]",
+      "periodo": "24E3",
+      "horario": "9:50",
+      "professor": "Victor Amadeu"
+    },
+    {
+      "categoria": "24E4",
+      "nome": "Uso de ferramentas de Inteligência Artificial no Photoshop [24E4]",
+      "periodo": "24E4",
+      "horario": "19:00",
+      "professor": "Ana Beatriz Silva"
+    },
+    {
+      "categoria": "Desenvolvimento Front-end com Frameworks [24E3 - 24E4]",
+      "nome": "Fundamentos de React [24E3_2]",
+      "periodo": "24E3",
+      "horario": "9:50",
+      "professor": "Victor Amadeu"
+    },
+    {
+      "categoria": "Fundamentos do Desenvolvimento de Software [23E3 - 23E4]",
+      "nome": "Programação Web com HTML 5 e CSS 3 [23E3_1]",
+      "periodo": "23E3",
+      "horario": "9:50",
+      "professor": "Cidcley"
+    },
+    {
+      "categoria": "Planejamento de Curso e Carreira [23E3 - 23E3]",
+      "nome": "Planejamento de Curso e Carreira [23E3]",
+      "periodo": "23E3",
+      "horario": "19:00",
+      "professor": "Mariana Oliveira"
+    },
+    {
+      "categoria": "Fundamentos do Desenvolvimento de Software [23E3 - 23E4]",
+      "nome": "Interatividade em Páginas Web [23E4_3]",
+      "periodo": "23E4",
+      "horario": "9:50",
+      "professor": "Cidcley"
+    },
+    {
+      "categoria": "Fundamentos do Desenvolvimento de Software [23E3 - 23E4]",
+      "nome": "Projeto de Bloco: Fundamentos do Desenvolvimento de Software [23E3_5]",
+      "periodo": "23E3",
+      "horario": "9:50",
+      "professor": "Carlos Eduardo Santos"
+    },
+    {
+      "categoria": "Fundamentos de Dados [24E1 - 24E2]",
+      "nome": "Projeto de Bloco: Fundamentos de Dados [24E1_5]",
+      "periodo": "24E1",
+      "horario": "9:50",
+      "professor": "Fernanda Costa"
+    },
+    {
+      "categoria": "24E3",
+      "nome": "Excel e Google Planilhas: funções, validação e tabelas dinâmicas [24E3]",
+      "periodo": "24E3",
+      "horario": "19:00",
+      "professor": "Roberto Almeida"
+    },
+    {
+      "categoria": "Fundamentos de Dados [24E1 - 24E2]",
+      "nome": "Python para Dados [24E2_4]",
+      "periodo": "24E2",
+      "horario": "9:50",
+      "professor": "Lucas Pereira"
+    },
+    {
+      "categoria": "Fundamentos de Dados [24E1 - 24E2]",
+      "nome": "Fundamentos de Modelagem Relacional e SQL [24E2_3]",
+      "periodo": "24E2",
+      "horario": "9:50",
+      "professor": "Patrícia Lima"
+    },
+    {
+      "categoria": "Fundamentos de Dados [24E1 - 24E2]",
+      "nome": "Programação com Python [24E1_2]",
+      "periodo": "24E1",
+      "horario": "9:50",
+      "professor": "Gustavo Henrique"
+    },
+    {
+      "categoria": "Fundamentos de Dados [24E1 - 24E2]",
+      "nome": "Visualização de Dados e Introdução a SQL [24E1_1]",
+      "periodo": "24E1",
+      "horario": "9:50",
+      "professor": "Juliana Martins"
+    },
+    {
+      "categoria": "Fundamentos do Desenvolvimento de Software [23E3 - 23E4]",
+      "nome": "Programação Web com JavaScript I [23E3_2]",
+      "periodo": "23E3",
+      "horario": "9:50",
+      "professor": "Cidcley"
+    },
+    {
+      "categoria": "[2023]",
+      "nome": "Aplicações de Cloud Computing [23E4]",
+      "periodo": "23E4",
+      "horario": "19:00",
+      "professor": "Daniel Ribeiro"
+    },
+    {
+      "categoria": "Fundamentos do Desenvolvimento de Software [23E3 - 23E4]",
+      "nome": "Programação Web com JavaScript II [23E4_4]",
+      "periodo": "23E4",
+      "horario": "9:50",
+      "professor": "Cidcley"
+    },
+    {
+      "categoria": "[2023]",
+      "nome": "Tópicos em Ciência de Dados para o Esporte [23E4]",
+      "periodo": "23E4",
+      "horario": "19:00",
+      "professor": "Alexandre Souza"
+    }
+  ]
+}
