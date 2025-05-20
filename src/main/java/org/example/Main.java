@@ -4,10 +4,10 @@ import java.util.List;
 
 public class Main {
     public static void main(String[] args) {
-        // Inicializa o banco
+        //inicializa o banco
         DatabaseConfig.criarTabelas();
 
-        // Autentica ou cria a secretaria
+        //autentica ou cria a secretaria
         SecretariaAcademica secretaria = SecretariaAcademicaCRUD.autenticar("secretaria@email.com", "admin");
 
         if (secretaria == null) {
@@ -27,7 +27,7 @@ public class Main {
         }
 
         //Insere dados usando a secretaria autenticada
-        InserirDadosIniciais.dadosCursoDisciplinasTurmasEAlunos(secretaria);
+        InserirDadosIniciais.dadosIniciais(secretaria);
 
         SecretariaAcademicaCRUD.listarSecretarias();
 

@@ -50,7 +50,7 @@ public class AlunoMenuView {
         JButton botaoNotas = new JButton("Visualizar Notas");
         botaoNotas.setFont(new Font("Arial", Font.PLAIN, 14));
         botaoNotas.setAlignmentX(Component.CENTER_ALIGNMENT);
-        botaoNotas.addActionListener(e -> AlunoService.visualizarNotas());
+        botaoNotas.addActionListener(e -> AlunoService.visualizarNotas(aluno));
         painelPrincipal.add(botaoNotas);
 
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 10)));

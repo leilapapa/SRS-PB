@@ -14,7 +14,7 @@ public final class Curso {
         this.disciplinas = new ArrayList<>();
     }
 
-    //Construtor adicional para carregar do banco de dados
+    //construtor adicional para carregar do banco de dados
     public Curso(int id, String nome, String codigo) {
         this.id = id;
         this.nome = nome;

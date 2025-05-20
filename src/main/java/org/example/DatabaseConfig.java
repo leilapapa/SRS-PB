@@ -57,6 +57,16 @@ public class DatabaseConfig {
                 "senha TEXT NOT NULL," +
                 "tipo TEXT NOT NULL)";
 
+        String sqlNota = "CREATE TABLE IF NOT EXISTS nota (" +
+                "id INTEGER PRIMARY KEY AUTOINCREMENT," +
+                "aluno_id INTEGER NOT NULL," +
+                "disciplina_id INTEGER NOT NULL," +
+                "valor REAL NOT NULL," +
+                "situacao TEXT NOT NULL," +
+                "FOREIGN KEY (aluno_id) REFERENCES aluno(id)," +
+                "FOREIGN KEY (disciplina_id) REFERENCES disciplina(id)," +
+                "UNIQUE(aluno_id, disciplina_id))";
+
         try (Connection conn = getConnection();
              Statement stmt = conn.createStatement()) {
             stmt.execute(sqlAluno);
@@ -65,6 +75,7 @@ public class DatabaseConfig {
             stmt.execute(sqlTurma);
             stmt.execute(sqlTurmaAluno);
             stmt.execute(sqlSecretaria);
+            stmt.execute(sqlNota);
 
         } catch (SQLException e) {
             System.err.println("Erro ao criar tabelas: " + e.getMessage());

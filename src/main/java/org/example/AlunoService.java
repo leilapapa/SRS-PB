@@ -28,13 +28,23 @@ public class AlunoService {
                 "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
     }
 
-    public static void visualizarNotas() {
-        String[] notas = {"Matemática: 8.5", "Português: 7.0", "História: 9.0", "Ciências: 6.5"};
-        StringBuilder notasFormatadas = new StringBuilder("Notas:\n\n");
-        for (String nota : notas) {
-            notasFormatadas.append("- ").append(nota).append("\n");
+    public static void visualizarNotas(Aluno aluno) {
+        List<Nota> notas = NotaCRUD.getNotasDoAluno(aluno.getId());
+        if (notas.isEmpty()) {
+            JOptionPane.showMessageDialog(null, "Você ainda não possui notas cadastradas.",
+                    "Notas", JOptionPane.INFORMATION_MESSAGE);
+            return;
         }
-        JOptionPane.showMessageDialog(null, notasFormatadas.toString(), "Notas", JOptionPane.INFORMATION_MESSAGE);
+
+        StringBuilder notasFormatadas = new StringBuilder("Notas por disciplina:\n\n");
+        for (Nota nota : notas) {
+            notasFormatadas.append("Disciplina: ").append(nota.getDisciplina().getNome()).append("\n")
+                    .append("Nota: ").append(nota.getValor()).append("\n")
+                    .append("Situação: ").append(nota.getSituacao()).append("\n\n");
+        }
+
+        JOptionPane.showMessageDialog(null, notasFormatadas.toString(),
+                "Notas", JOptionPane.INFORMATION_MESSAGE);
     }
 
     public static void cancelarMatricula(Aluno aluno, SecretariaAcademica secretaria) {

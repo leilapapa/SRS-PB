@@ -15,7 +15,7 @@ public class Aluno extends Usuario {
         this.historico = new Historico(this);
     }
 
-    // Construtor adicional para carregar do banco de dados
+    //construtor adicional para carregar do banco de dados
     public Aluno(int id, String nome, String email, String senha, String matricula, String status) {
         super(nome, email, senha, TipoUsuario.ALUNO);
         this.matricula = new Matricula(matricula, status, this);
@@ -24,7 +24,7 @@ public class Aluno extends Usuario {
         this.historico = new Historico(this);
     }
 
-    // Getters e setters
+    //getters e setters
     public int getId() {
         return matricula.getId();
     }
@@ -53,7 +53,7 @@ public class Aluno extends Usuario {
         this.historico = historico;
     }
 
-    // Métodos de negócio
+    //metodos solicitar cancelamento, cancelarMatricula, visualizarGrade, visualizarNotas
     public void solicitarCancelamento(SecretariaAcademica secretaria) {
         secretaria.processarCancelamento(this);
     }
