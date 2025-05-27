@@ -14,9 +14,9 @@ import java.util.Properties;
 
 public class AlunoService {
 
-    //credenciais
+    // credenciais
     private static final String EMAIL_REMETENTE = "leandrobm05@gmail.com";
-    private static final String SENHA_APP = "wcvx agfq zfqg tsbs\n";
+    private static final String SENHA_APP = "wcvx agfq zfqg tsbs";
 
     public static void visualizarGrade(Aluno aluno) {
         List<Turma> turmas = aluno.getTurmas();
@@ -37,35 +37,50 @@ public class AlunoService {
             ).append("\n\n");
         }
 
-        Object[] opcoes = {"Visualizar", "Salvar em Arquivo", "Cancelar"};
+        // Lista apenas as disciplinas (matérias)
+        StringBuilder materias = new StringBuilder("Matérias matriculadas:\n");
+        for (Turma turma : turmas) {
+            materias.append("- ").append(turma.getDisciplina().getNome()).append("\n");
+        }
+
+        Object[] opcoes = {"Visualizar Grade Completa", "Visualizar Matérias", "Salvar Grade", "Cancelar"};
         int escolha = JOptionPane.showOptionDialog(
                 null,
                 "O que deseja fazer com sua grade de disciplinas?",
                 "Grade de Disciplinas",
-                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.DEFAULT_OPTION,
                 JOptionPane.QUESTION_MESSAGE,
                 null,
                 opcoes,
                 opcoes[0]
         );
 
-        if (escolha == JOptionPane.YES_OPTION) {
-            JOptionPane.showMessageDialog(null, grade.toString(),
-                    "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
-        } else if (escolha == JOptionPane.NO_OPTION) {
-            JFileChooser fileChooser = new JFileChooser();
-            fileChooser.setDialogTitle("Salvar Grade de Disciplinas");
-            int userSelection = fileChooser.showSaveDialog(null);
-            if (userSelection == JFileChooser.APPROVE_OPTION) {
-                java.io.File fileToSave = fileChooser.getSelectedFile();
-                try (java.io.FileWriter writer = new java.io.FileWriter(fileToSave)) {
-                    writer.write(grade.toString());
-                    JOptionPane.showMessageDialog(null, "Grade salva com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
-                } catch (java.io.IOException e) {
-                    e.printStackTrace();
-                    JOptionPane.showMessageDialog(null, "Erro ao salvar arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+        switch (escolha) {
+            case 0: // Visualizar grade completa
+                JOptionPane.showMessageDialog(null, grade.toString(),
+                        "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 1: // Visualizar apenas matérias
+                JOptionPane.showMessageDialog(null, materias.toString(),
+                        "Matérias Matriculadas", JOptionPane.INFORMATION_MESSAGE);
+                break;
+            case 2: // Salvar grade completa
+                JFileChooser fileChooser = new JFileChooser();
+                fileChooser.setDialogTitle("Salvar Grade de Disciplinas");
+                int userSelection = fileChooser.showSaveDialog(null);
+                if (userSelection == JFileChooser.APPROVE_OPTION) {
+                    java.io.File fileToSave = fileChooser.getSelectedFile();
+                    try (java.io.FileWriter writer = new java.io.FileWriter(fileToSave)) {
+                        writer.write(grade.toString());
+                        JOptionPane.showMessageDialog(null, "Grade salva com sucesso!", "Sucesso", JOptionPane.INFORMATION_MESSAGE);
+                    } catch (java.io.IOException e) {
+                        e.printStackTrace();
+                        JOptionPane.showMessageDialog(null, "Erro ao salvar arquivo: " + e.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
+                    }
                 }
-            }
+                break;
+            default:
+                break;
         }
     }
 
@@ -129,7 +144,6 @@ public class AlunoService {
         props.put("mail.smtp.port", "587");
         props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-        //  autenticação
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -138,7 +152,6 @@ public class AlunoService {
         });
 
         try {
-            // Criar mensagem
             Message mensagem = new MimeMessage(session);
             mensagem.setFrom(new InternetAddress(EMAIL_REMETENTE));
             mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDestino));
@@ -161,7 +174,6 @@ public class AlunoService {
 
             mensagem.setText(conteudo.toString());
 
-            // Enviar email
             Transport.send(mensagem);
 
             JOptionPane.showMessageDialog(null,
