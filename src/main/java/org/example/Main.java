@@ -67,7 +67,6 @@ public class Main {
             System.out.println("-------------------------------");
         }
 
-        // Abre a interface de login do aluno
         LoginView.criarJanelaDeLogin();
     }
 }

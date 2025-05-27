@@ -88,4 +88,7 @@ public class Aluno extends Usuario {
                 ", email='" + getEmail() + '\'' +
                 '}';
     }
+
+    public void setStatus(String emCancelamento) {
+    }
 }
