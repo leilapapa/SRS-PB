@@ -28,10 +28,6 @@ public class Historico {
         this.disciplinasNotas = disciplinasNotas;
     }
 
-    //metodo
-    public void gerarPDF() {
-        throw new UnsupportedOperationException("A Função gerarPDF() ainda não foi implementada.");
-    }
 
     public void adicionarNota(Disciplina disciplina, Nota nota) {
         disciplinasNotas.put(disciplina, nota);

@@ -376,7 +376,7 @@ public class AlunoService {
             //conteúdo HTML para melhor formatação
             StringBuilder conteudoHTML = new StringBuilder();
             conteudoHTML.append("<html><body>");
-            conteudoHTML.append("<h2>Suas Notas</h2>");
+            conteudoHTML.append("<h2>Notas</h2>");
             conteudoHTML.append("<p>Ola!</p>");
             conteudoHTML.append("<p>Segue abaixo suas notas acadêmicas:</p>");
             conteudoHTML.append("<table border='1' style='border-collapse: collapse; width: 100%;'>");
@@ -513,12 +513,27 @@ public class AlunoService {
             conteudoHTML.append("<th style='padding: 8px;'>Situação</th>");
             conteudoHTML.append("</tr>");
 
+            double somaNotas = 0;
+            int totalNotas = 0;
+
             for (Nota nota : notas) {
+                String corSituacao = "color: orange;";
+                String situacao = nota.getSituacao().toString();
+                if ("APROVADO".equalsIgnoreCase(situacao)) {
+                    corSituacao = "color: green;";
+                } else if ("REPROVADO".equalsIgnoreCase(situacao)) {
+                    corSituacao = "color: red;";
+                }
+
                 conteudoHTML.append("<tr>");
                 conteudoHTML.append("<td style='padding: 8px;'>").append(nota.getDisciplina().getNome()).append("</td>");
                 conteudoHTML.append("<td style='padding: 8px; text-align: center;'>").append(nota.getValor()).append("</td>");
-                conteudoHTML.append("<td style='padding: 8px; text-align: center;'>").append(nota.getSituacao().toString()).append("</td>");
+                conteudoHTML.append("<td style='padding: 8px; text-align: center; ").append(corSituacao).append("'>")
+                        .append(situacao).append("</td>");
                 conteudoHTML.append("</tr>");
+
+                somaNotas += nota.getValor();
+                totalNotas++;
             }
 
             for (Turma turma : turmasEmAndamento) {
@@ -531,6 +546,13 @@ public class AlunoService {
             }
 
             conteudoHTML.append("</table>");
+
+            if (totalNotas > 0) {
+                double media = somaNotas / totalNotas;
+                conteudoHTML.append("<br><p><strong>CR: ")
+                        .append(String.format("%.2f", media)).append("</strong></p>");
+            }
+
             conteudoHTML.append("<br><p style='color: #666;'>Documento gerado automaticamente pela Secretaria Acadêmica</p>");
             conteudoHTML.append("</body></html>");
 
