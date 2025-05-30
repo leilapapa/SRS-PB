@@ -40,16 +40,18 @@ public class SecretariaAcademica extends Usuario {
         AlunoCRUD.create(aluno);
     }
 
-    //precisa incluir no diagrama de classes matricularAlunoEmTurma!!
-    public void matricularAlunoEmTurma(Aluno aluno, Turma turma) {
+        public void matricularAlunoEmTurma(Aluno aluno, Turma turma) {
         AlunoCRUD.matricularEmTurma(aluno.getId(), turma.getId());
     }
     public boolean verificarConclusaoAluno(Aluno aluno) {
-        //implementar!!
         return false;
     }
 
     public void processarCancelamento(Aluno aluno) {
         aluno.cancelarMatricula();
+    }
+
+    public void processarSolicitacaoHistorico(Aluno aluno) {
+        System.out.println("Solicitação de histórico recebida: " + aluno.getNome());
     }
 }

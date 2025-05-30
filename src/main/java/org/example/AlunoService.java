@@ -30,7 +30,7 @@ public class AlunoService {
     public static void visualizarGrade(Aluno aluno) {
         List<Turma> turmas = aluno.getTurmas();
         if (turmas == null || turmas.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Voce nao esta matriculado em nenhuma turma.",
+            JOptionPane.showMessageDialog(null, "Você não está matriculado em nenhuma turma.",
                     "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
             return;
         }
@@ -64,10 +64,7 @@ public class AlunoService {
                         "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
                 break;
             case 1: // Enviar matérias por email
-                String email = JOptionPane.showInputDialog(null, "Digite o email para envio das materias:");
-                if (email != null && !email.trim().isEmpty()) {
-                    enviarEmailComMaterias(email, turmas);
-                }
+                enviarEmailComMaterias(aluno.getEmail(), turmas);
                 break;
             case 2: // Salvar grade em PDF
                 JFileChooser fileChooser = new JFileChooser();
@@ -126,14 +123,14 @@ public class AlunoService {
             Message mensagem = new MimeMessage(session);
             mensagem.setFrom(new InternetAddress(EMAIL_REMETENTE));
             mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDestino));
-            mensagem.setSubject("Materias Matriculadas - Sistema Academico");
+            mensagem.setSubject("Disciplinas Matriculadas - Secretaria Acadêmica");
 
             // Criando conteúdo HTML para melhor formatação
             StringBuilder conteudoHTML = new StringBuilder();
             conteudoHTML.append("<html><body>");
-            conteudoHTML.append("<h2>Suas Materias Matriculadas</h2>");
+            conteudoHTML.append("<h2>Suas Disciplinas Matriculadas</h2>");
             conteudoHTML.append("<p>Ola!</p>");
-            conteudoHTML.append("<p>Segue abaixo a lista das materias em que voce esta matriculado(a):</p>");
+            conteudoHTML.append("<p>Segue abaixo a lista das disciplinas em que você esta matriculado(a):</p>");
             conteudoHTML.append("<ul>");
 
             for (Turma turma : turmas) {
@@ -141,15 +138,15 @@ public class AlunoService {
                         .append(turma.getDisciplina().getNome())
                         .append("</strong>");
                 conteudoHTML.append("<br>Dias: ").append(formatarDiasSemana(turma.getDiasSemana()));
-                conteudoHTML.append("<br>Horario: ").append(turma.getHorario());
+                conteudoHTML.append("<br>Horário: ").append(turma.getHorario());
                 conteudoHTML.append("<br>Professor: ")
-                        .append(turma.getProfessor() != null ? turma.getProfessor().getNome() : "Nao informado");
+                        .append(turma.getProfessor() != null ? turma.getProfessor().getNome() : "Não informado");
                 conteudoHTML.append("</li><br>");
             }
 
             conteudoHTML.append("</ul>");
-            conteudoHTML.append("<p><strong>Total de materias: ").append(turmas.size()).append("</strong></p>");
-            conteudoHTML.append("<br><p>Atenciosamente,<br>Sistema Academico</p>");
+            conteudoHTML.append("<p><strong>Total de disciplinas: ").append(turmas.size()).append("</strong></p>");
+            conteudoHTML.append("<br><p>Atenciosamente,<br>Secretaria Acadêmica</p>");
             conteudoHTML.append("</body></html>");
 
             mensagem.setContent(conteudoHTML.toString(), "text/html; charset=utf-8");
@@ -281,7 +278,6 @@ public class AlunoService {
         }
     }
 
-    // MÉTODO ATUALIZADO PARA USAR NOTAS REAIS
     public static void visualizarNotas(Aluno aluno) {
         // Buscar notas reais do banco de dados
         List<Nota> notas = NotaCRUD.getNotasDoAluno(aluno.getId());
@@ -311,16 +307,12 @@ public class AlunoService {
         );
 
         if (escolha == JOptionPane.YES_OPTION) {
-            String email = JOptionPane.showInputDialog(null, "Digite o email para envio:");
-            if (email != null && !email.trim().isEmpty()) {
-                enviarEmailComNotasReais(email, notas);
-            }
+            enviarEmailComNotasReais(aluno.getEmail(), notas);
         } else if (escolha == JOptionPane.NO_OPTION) {
             mostrarGraficoNotasReais(notas);
         }
     }
 
-    // Método para mostrar gráfico com notas reais - AJUSTADO O TAMANHO
     private static void mostrarGraficoNotasReais(List<Nota> notas) {
         DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         for (Nota nota : notas) {
@@ -328,10 +320,15 @@ public class AlunoService {
         }
 
         JFreeChart chart = ChartFactory.createBarChart(
-                "Grafico de Notas",
+                "Gráfico de Notas",
                 "Disciplinas",
                 "Notas",
                 dataset
+        );
+
+        chart.getCategoryPlot().getDomainAxis().setMaximumCategoryLabelWidthRatio(0.8f);
+        chart.getCategoryPlot().getDomainAxis().setCategoryLabelPositions(
+                org.jfree.chart.axis.CategoryLabelPositions.createUpRotationLabelPositions(Math.PI / 6.0)
         );
 
         ChartPanel chartPanel = new ChartPanel(chart);
@@ -355,7 +352,6 @@ public class AlunoService {
         chartFrame.setVisible(true);
     }
 
-    // Método para enviar email com notas reais
     public static void enviarEmailComNotasReais(String emailDestino, List<Nota> notas) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
@@ -375,19 +371,19 @@ public class AlunoService {
             Message mensagem = new MimeMessage(session);
             mensagem.setFrom(new InternetAddress(EMAIL_REMETENTE));
             mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDestino));
-            mensagem.setSubject("Notas Academicas - Sistema Escolar");
+            mensagem.setSubject("Notas - Secretaria Acadêmica");
 
-            // Criando conteúdo HTML para melhor formatação
+            //conteúdo HTML para melhor formatação
             StringBuilder conteudoHTML = new StringBuilder();
             conteudoHTML.append("<html><body>");
-            conteudoHTML.append("<h2>Suas Notas Academicas</h2>");
+            conteudoHTML.append("<h2>Suas Notas</h2>");
             conteudoHTML.append("<p>Ola!</p>");
-            conteudoHTML.append("<p>Segue abaixo suas notas academicas:</p>");
+            conteudoHTML.append("<p>Segue abaixo suas notas acadêmicas:</p>");
             conteudoHTML.append("<table border='1' style='border-collapse: collapse; width: 100%;'>");
             conteudoHTML.append("<tr style='background-color: #f2f2f2;'>");
             conteudoHTML.append("<th style='padding: 8px;'>Disciplina</th>");
             conteudoHTML.append("<th style='padding: 8px;'>Nota</th>");
-            conteudoHTML.append("<th style='padding: 8px;'>Situacao</th>");
+            conteudoHTML.append("<th style='padding: 8px;'>Situação</th>");
             conteudoHTML.append("</tr>");
 
             double somaNotas = 0;
@@ -419,11 +415,11 @@ public class AlunoService {
 
             if (totalNotas > 0) {
                 double media = somaNotas / totalNotas;
-                conteudoHTML.append("<br><p><strong>Media Geral: ")
+                conteudoHTML.append("<br><p><strong>CR: ")
                         .append(String.format("%.2f", media)).append("</strong></p>");
             }
 
-            conteudoHTML.append("<br><p>Atenciosamente,<br>Sistema Academico</p>");
+            conteudoHTML.append("<br><p>Atenciosamente,<br>Secretaria Acadêmica</p>");
             conteudoHTML.append("</body></html>");
 
             mensagem.setContent(conteudoHTML.toString(), "text/html; charset=utf-8");
@@ -444,9 +440,118 @@ public class AlunoService {
                     JOptionPane.ERROR_MESSAGE);
         }
     }
+    public static void solicitarHistorico(Aluno aluno, SecretariaAcademica secretaria) {
+        JOptionPane.showMessageDialog(null,
+                "Solicitação de histórico enviada para a Secretaria.\n\n"
+                        + "O documento será gerado e enviado por email ao aluno em breve.",
+                "Solicitação de Histórico",
+                JOptionPane.INFORMATION_MESSAGE);
 
-    // Método para enviar email de cancelamento de matrícula
-    public static void enviarEmailCancelamento(Aluno aluno, SecretariaAcademica secretaria) {
+        try {
+            secretaria.processarSolicitacaoHistorico(aluno);
+            enviarEmailHistorico(aluno);
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao processar o histórico: " + e.getMessage(),
+                    "Erro",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    public static void enviarEmailHistorico(Aluno aluno) {
+        List<Nota> notas = NotaCRUD.getNotasDoAluno(aluno.getId());
+        List<Turma> turmasEmAndamento = aluno.getTurmas();
+
+        if (notas.isEmpty() && (turmasEmAndamento == null || turmasEmAndamento.isEmpty())) {
+            JOptionPane.showMessageDialog(null,
+                    "O aluno ainda não possui dados suficientes para compor o histórico.",
+                    "Sem Dados",
+                    JOptionPane.WARNING_MESSAGE);
+            return;
+        }
+
+        String emailDestino = aluno.getEmail();
+        if (emailDestino == null || emailDestino.trim().isEmpty()) {
+            JOptionPane.showMessageDialog(null,
+                    "Email do aluno não informado.",
+                    "Erro de Email",
+                    JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+        props.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        Session session = Session.getInstance(props, new Authenticator() {
+            @Override
+            protected PasswordAuthentication getPasswordAuthentication() {
+                return new PasswordAuthentication(EMAIL_REMETENTE, SENHA_APP);
+            }
+        });
+
+        try {
+            Message mensagem = new MimeMessage(session);
+            mensagem.setFrom(new InternetAddress(EMAIL_REMETENTE));
+            mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailDestino));
+            mensagem.setSubject("Histórico - " + aluno.getNome());
+
+            StringBuilder conteudoHTML = new StringBuilder();
+            conteudoHTML.append("<html><body>");
+            conteudoHTML.append("<h2 style='color: #2e7d32;'>HISTÓRICO</h2>");
+            conteudoHTML.append("<hr>");
+            conteudoHTML.append("<p><strong>Nome:</strong> ").append(aluno.getNome()).append("</p>");
+            conteudoHTML.append("<p><strong>Matrícula:</strong> ").append(aluno.getMatricula().getMatricula()).append("</p>");
+            conteudoHTML.append("<table border='1' style='border-collapse: collapse; width: 100%;'>");
+            conteudoHTML.append("<tr style='background-color: #f2f2f2;'>");
+            conteudoHTML.append("<th style='padding: 8px;'>Disciplina</th>");
+            conteudoHTML.append("<th style='padding: 8px;'>Nota</th>");
+            conteudoHTML.append("<th style='padding: 8px;'>Situação</th>");
+            conteudoHTML.append("</tr>");
+
+            for (Nota nota : notas) {
+                conteudoHTML.append("<tr>");
+                conteudoHTML.append("<td style='padding: 8px;'>").append(nota.getDisciplina().getNome()).append("</td>");
+                conteudoHTML.append("<td style='padding: 8px; text-align: center;'>").append(nota.getValor()).append("</td>");
+                conteudoHTML.append("<td style='padding: 8px; text-align: center;'>").append(nota.getSituacao().toString()).append("</td>");
+                conteudoHTML.append("</tr>");
+            }
+
+            for (Turma turma : turmasEmAndamento) {
+                Disciplina disciplina = turma.getDisciplina();
+                conteudoHTML.append("<tr>");
+                conteudoHTML.append("<td style='padding: 8px;'>").append(disciplina.getNome()).append("</td>");
+                conteudoHTML.append("<td style='padding: 8px; text-align: center;'>-</td>");
+                conteudoHTML.append("<td style='padding: 8px; text-align: center;'>Em andamento</td>");
+                conteudoHTML.append("</tr>");
+            }
+
+            conteudoHTML.append("</table>");
+            conteudoHTML.append("<br><p style='color: #666;'>Documento gerado automaticamente pela Secretaria Acadêmica</p>");
+            conteudoHTML.append("</body></html>");
+
+            mensagem.setContent(conteudoHTML.toString(), "text/html; charset=utf-8");
+            Transport.send(mensagem);
+
+            JOptionPane.showMessageDialog(null,
+                    "Histórico enviado com sucesso para: " + emailDestino,
+                    "Sucesso",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+        } catch (MessagingException e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(null,
+                    "Erro ao enviar o email do histórico: " + e.getMessage(),
+                    "Erro de Email",
+                    JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+public static void enviarEmailCancelamento(Aluno aluno, SecretariaAcademica secretaria) {
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
@@ -465,31 +570,30 @@ public class AlunoService {
             Message mensagem = new MimeMessage(session);
             mensagem.setFrom(new InternetAddress(EMAIL_REMETENTE));
 
-            // Enviar para a secretaria
-            String emailSecretaria = "secretaria@escola.com";
-            mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emailSecretaria));
+            // Enviar para a secretaria -
+            mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(secretaria.getEmail()));
 
             // Cópia para o aluno
             if (aluno.getEmail() != null && !aluno.getEmail().trim().isEmpty()) {
                 mensagem.setRecipients(Message.RecipientType.CC, InternetAddress.parse(aluno.getEmail()));
             }
 
-            mensagem.setSubject("Solicitacao de Cancelamento de Matricula - " + aluno.getNome());
+            mensagem.setSubject("Solicitação de Cancelamento de Matrícula - " + aluno.getNome());
 
             // Criando conteúdo HTML
             StringBuilder conteudoHTML = new StringBuilder();
             conteudoHTML.append("<html><body>");
-            conteudoHTML.append("<h2 style='color: #d32f2f;'>SOLICITACAO DE CANCELAMENTO DE MATRICULA</h2>");
+            conteudoHTML.append("<h2 style='color: #d32f2f;'>SOLICITAÇÃO DE CANCELAMENTO DE MATRÍCULA</h2>");
             conteudoHTML.append("<hr>");
 
             conteudoHTML.append("<h3>Dados do Aluno:</h3>");
             conteudoHTML.append("<p><strong>Nome:</strong> ").append(aluno.getNome()).append("</p>");
-            conteudoHTML.append("<p><strong>Matricula:</strong> ").append(aluno.getMatricula()).append("</p>");
+            conteudoHTML.append("<p><strong>Matrícula:</strong> ").append(aluno.getMatricula()).append("</p>");
             if (aluno.getEmail() != null) {
                 conteudoHTML.append("<p><strong>Email:</strong> ").append(aluno.getEmail()).append("</p>");
             }
 
-            conteudoHTML.append("<h3>Informacoes da Solicitacao:</h3>");
+            conteudoHTML.append("<h3>Informaçõess da Solicitação:</h3>");
             conteudoHTML.append("<p><strong>Data/Hora:</strong> ")
                     .append(LocalDateTime.now().format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")))
                     .append("</p>");
@@ -509,12 +613,12 @@ public class AlunoService {
             }
 
             conteudoHTML.append("<hr>");
-            conteudoHTML.append("<p><strong>ACAO NECESSARIA:</strong></p>");
-            conteudoHTML.append("<p>Esta solicitacao requer analise e aprovacao da Secretaria Academica.</p>");
-            conteudoHTML.append("<p>O aluno sera notificado sobre o resultado do processo.</p>");
+            conteudoHTML.append("<p><strong>AÇÃO NECESSÁRIA:</strong></p>");
+            conteudoHTML.append("<p>Esta solicitação requer análise e aprovação da Secretaria Acadêmica.</p>");
+            conteudoHTML.append("<p>O aluno será notificado sobre o resultado do processo.</p>");
 
             conteudoHTML.append("<br><p style='color: #666;'>Atenciosamente,<br>");
-            conteudoHTML.append("Sistema Academico Automatizado</p>");
+            conteudoHTML.append("Secretaria Acadêmica</p>");
             conteudoHTML.append("</body></html>");
 
             mensagem.setContent(conteudoHTML.toString(), "text/html; charset=utf-8");
@@ -522,7 +626,7 @@ public class AlunoService {
             Transport.send(mensagem);
 
             JOptionPane.showMessageDialog(null,
-                    "Notificacao de cancelamento enviada com sucesso!\n" +
+                    "Notificação de cancelamento enviada com sucesso!\n" +
                             "Secretaria e aluno foram notificados por email.",
                     "Email Enviado",
                     JOptionPane.INFORMATION_MESSAGE);
@@ -530,8 +634,8 @@ public class AlunoService {
         } catch (MessagingException e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(null,
-                    "Erro ao enviar notificacao por email: " + e.getMessage() +
-                            "\n\nO cancelamento foi processado, mas a notificacao falhou.",
+                    "Erro ao enviar notificação por email: " + e.getMessage() +
+                            "\n\nO cancelamento foi processado, mas a notificação falhou.",
                     "Erro no Email",
                     JOptionPane.WARNING_MESSAGE);
         }
@@ -540,13 +644,13 @@ public class AlunoService {
     public static void cancelarMatricula(Aluno aluno, SecretariaAcademica secretaria) {
         int confirmacao = JOptionPane.showConfirmDialog(
                 null,
-                "ATENCAO: Tem certeza que deseja cancelar sua matricula?\n\n" +
-                        "Esta acao ira:\n" +
+                "ATENÇÃO: Tem certeza que deseja cancelar sua matricula?\n\n" +
+                        "Esta ação irá:\n" +
                         "- Alterar seu status para 'EM PROCESSO DE CANCELAMENTO'\n" +
-                        "- Enviar notificacao para a Secretaria Academica\n" +
+                        "- Enviar notificação para a Secretaria Acadêmica\n" +
                         "- Iniciar o processo de cancelamento\n\n" +
                         "Deseja continuar?",
-                "Cancelar Matricula",
+                "Cancelar Matrícula",
                 JOptionPane.YES_NO_OPTION,
                 JOptionPane.WARNING_MESSAGE
         );
@@ -560,11 +664,11 @@ public class AlunoService {
                 enviarEmailCancelamento(aluno, secretaria);
 
                 JOptionPane.showMessageDialog(null,
-                        "Solicitacao de cancelamento processada com sucesso!\n\n" +
+                        "Solicitação de cancelamento processada com sucesso!\n\n" +
                                 "Status alterado para: EM PROCESSO DE CANCELAMENTO\n" +
-                                "Notificacao enviada por email\n" +
-                                "Aguarde analise da Secretaria Academica\n\n" +
-                                "Voce sera notificado sobre o resultado.",
+                                "Notificação enviada por email\n" +
+                                "Aguarde análise da Secretaria Acadêmica\n\n" +
+                                "Você receberá uma atualização em breve.",
                         "Cancelamento Solicitado",
                         JOptionPane.INFORMATION_MESSAGE);
 

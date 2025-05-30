@@ -7,7 +7,7 @@ import java.sql.Statement;
 
 //conecta o banco e cria as tabelas
 public class DatabaseConfig {
-    private static final String URL = "jdbc:sqlite:escola.db";
+    private static final String URL = "jdbc:sqlite:banco.db";
 
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL);

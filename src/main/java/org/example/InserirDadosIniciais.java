@@ -82,9 +82,9 @@ public class InserirDadosIniciais {
 
         //alunos + alunos atribuidos às turmas
         List<Aluno> alunos = List.of(
-                new Aluno("Leandro Barbosa", "leandro@email.com", "123", "20231238", "ativo"),
-                new Aluno("Leilane Papa", "leilane@email.com", "123", "20231239", "ativo"),
-                new Aluno("Victor Cezar", "victor@email.com", "123", "20231240", "ativo")
+                new Aluno("Leandro Barbosa", "leandro.bmartins@al.infnet.edu.br", "123", "20231238", "ativo"),
+                new Aluno("Leilane Papa", "leilane.papa@al.infnet.edu.br", "123", "20231239", "ativo"),
+                new Aluno("Victor Cezar", "victor.cxavier@al.infnet.edu.br ", "123", "20231240", "ativo")
         );
 
         for (Aluno aluno : alunos) {

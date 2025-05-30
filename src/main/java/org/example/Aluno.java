@@ -80,7 +80,7 @@ public class Aluno extends Usuario {
     public String toString() {
         return "Aluno{" +
                 "id=" + getId() +
-                ", matricula=" + (matricula != null ? matricula.getMatricula() : "null") +
+                ", matrícula=" + (matricula != null ? matricula.getMatricula() : "null") +
                 ", status=" + (matricula != null ? matricula.getStatus() : "null") +
                 ", turmas=" + (turmas != null ? turmas.size() : 0) +
                 ", historico=" + (historico != null ? "OK" : "null") +

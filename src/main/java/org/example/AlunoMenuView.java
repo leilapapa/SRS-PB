@@ -16,7 +16,7 @@ public class AlunoMenuView {
 
         frame = new JFrame("Menu do Aluno");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(500, 400);
+        frame.setSize(600, 500);
         frame.setLayout(new BorderLayout());
         frame.setLocationRelativeTo(null);
 
@@ -46,7 +46,10 @@ public class AlunoMenuView {
                 BorderFactory.createEmptyBorder(10, 10, 10, 10)
         ));
         dadosAluno.setAlignmentX(Component.CENTER_ALIGNMENT);
-        painelPrincipal.add(dadosAluno);
+        JScrollPane scrollPane = new JScrollPane(dadosAluno);
+        scrollPane.setPreferredSize(new Dimension(400, 100));
+        scrollPane.setBorder(null);
+        painelPrincipal.add(scrollPane);
 
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 30)));
 
@@ -65,7 +68,12 @@ public class AlunoMenuView {
         botaoNotas.addActionListener(e -> AlunoService.visualizarNotas(aluno));
         painelBotoes.add(botaoNotas);
 
-        JButton botaoCancelar = new JButton("Cancelar Matricula");
+        JButton botaoHistorico = new JButton("Solicitar Histórico");
+        estilizarBotao(botaoHistorico);
+        botaoHistorico.addActionListener(e -> AlunoService.solicitarHistorico(aluno, secretaria));
+        painelBotoes.add(botaoHistorico);
+
+        JButton botaoCancelar = new JButton("Cancelar Matrícula");
         estilizarBotao(botaoCancelar);
         botaoCancelar.addActionListener(e -> {
             cancelarMatriculaComCallback(aluno, secretaria);
@@ -95,10 +103,10 @@ public class AlunoMenuView {
     private static void cancelarMatriculaComCallback(Aluno aluno, SecretariaAcademica secretaria) {
         int confirmacao = JOptionPane.showConfirmDialog(
                 frame,
-                "ATENCAO: Tem certeza que deseja cancelar sua matricula?\n\n" +
-                        "Esta acao ira:\n" +
+                "ATENÇÃO: Tem certeza que deseja cancelar sua matrícula?\n\n" +
+                        "Esta ação irá:\n" +
                         "- Alterar seu status para 'EM PROCESSO DE CANCELAMENTO'\n" +
-                        "- Enviar notificacao para a Secretaria Academica\n" +
+                        "- Enviar notificação para a Secretaria Acadêmica\n" +
                         "- Iniciar o processo de cancelamento\n\n" +
                         "Deseja continuar?",
                 "Cancelar Matricula",
@@ -108,7 +116,7 @@ public class AlunoMenuView {
 
         if (confirmacao == JOptionPane.YES_OPTION) {
             try {
-                aluno.getMatricula().setStatus("EM PROCESSO DE CANCELAMENTO");
+                aluno.getMatricula().setStatus("Em processo de cancelamento");
 
                 atualizarDadosAluno(aluno);
 
@@ -124,7 +132,7 @@ public class AlunoMenuView {
                 // 6. Mostrar confirmação
                 JOptionPane.showMessageDialog(frame,
                         "Solicitacao de cancelamento processada com sucesso!\n\n" +
-                                "Status alterado para: EM PROCESSO DE CANCELAMENTO\n" +
+                                "Status alterado para: Em processo de cancelamento\n" +
                                 "Notificacao enviada por email\n" +
                                 "Aguarde analise da Secretaria Academica\n\n" +
                                 "Voce sera notificado sobre o resultado.",
