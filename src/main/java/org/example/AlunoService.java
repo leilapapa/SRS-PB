@@ -128,7 +128,7 @@ public class AlunoService {
             // Criando conteúdo HTML para melhor formatação
             StringBuilder conteudoHTML = new StringBuilder();
             conteudoHTML.append("<html><body>");
-            conteudoHTML.append("<h2>Suas Disciplinas Matriculadas</h2>");
+            conteudoHTML.append("<h2>Disciplinas Matriculadas</h2>");
             conteudoHTML.append("<p>Ola!</p>");
             conteudoHTML.append("<p>Segue abaixo a lista das disciplinas em que você esta matriculado(a):</p>");
             conteudoHTML.append("<ul>");
@@ -186,10 +186,6 @@ public class AlunoService {
             Paragraph infoAluno = new Paragraph("Aluno: " + aluno.getNome(), subtituloFont);
             infoAluno.setSpacingAfter(10);
             document.add(infoAluno);
-
-            Paragraph matricula = new Paragraph("Matricula: " + aluno.getMatricula(), subtituloFont);
-            matricula.setSpacingAfter(20);
-            document.add(matricula);
 
             // Tabela com as disciplinas
             PdfPTable tabela = new PdfPTable(5);
@@ -610,7 +606,7 @@ public static void enviarEmailCancelamento(Aluno aluno, SecretariaAcademica secr
 
             conteudoHTML.append("<h3>Dados do Aluno:</h3>");
             conteudoHTML.append("<p><strong>Nome:</strong> ").append(aluno.getNome()).append("</p>");
-            conteudoHTML.append("<p><strong>Matrícula:</strong> ").append(aluno.getMatricula()).append("</p>");
+            conteudoHTML.append("<p><strong>Matrícula:</strong> ").append(aluno.getMatricula().getMatricula()).append("</p>");
             if (aluno.getEmail() != null) {
                 conteudoHTML.append("<p><strong>Email:</strong> ").append(aluno.getEmail()).append("</p>");
             }
