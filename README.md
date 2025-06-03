@@ -6,11 +6,12 @@ Sistema orientado a objetos desenvolvido em Java para gerenciamento acadêmico. 
 
 ## 🧩 Funcionalidades
 
-- Cadastro de Alunos, Professores, Secretarias, Disciplinas e Cursos
+- Cadastro de Alunos, Professores, Secretarias, Disciplinas, Turmas e Cursos
 - Matrícula e Cancelamento de Matrícula de Alunos
 - Atribuição e Visualização de Notas
 - Geração de Histórico em PDF
-- Visualização de Grade Horário
+- Visualização de Grade de Horário
+- Geração de gráfico de notas
 - Interface gráfica para Aluno com Swing
 - Simulação de envio de e-mail
 - Autenticação de Usuários
@@ -33,6 +34,7 @@ Sistema orientado a objetos desenvolvido em Java para gerenciamento acadêmico. 
    ```bash
    git clone https://github.com/seu-usuario/sistema-academico-java.git
 
+---
 
 ## 📃 Licença
 
