@@ -7,13 +7,13 @@ public class SecretariaAcademica extends Usuario {
         super(nome, email, senha, TipoUsuario.SECRETARIA);
     }
 
-    // Construtor com ID (opcional para uso ao carregar do banco)
+    //construtor com ID (opcional para uso ao carregar do banco)
     public SecretariaAcademica(int id, String nome, String email, String senha) {
         super(nome, email, senha, TipoUsuario.SECRETARIA);
         this.id = id;
     }
 
-    // Getter e setter para ID
+    //getter e setter para ID
     public int getId() {
         return id;
     }

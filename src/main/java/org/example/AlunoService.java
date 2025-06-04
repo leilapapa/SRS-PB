@@ -59,14 +59,14 @@ public class AlunoService {
         );
 
         switch (escolha) {
-            case 0: // Visualizar grade completa
+            case 0: //visualizar grade completa
                 JOptionPane.showMessageDialog(null, grade.toString(),
                         "Grade de Disciplinas", JOptionPane.INFORMATION_MESSAGE);
                 break;
-            case 1: // Enviar matérias por email
+            case 1: //rnviar matérias por email
                 enviarEmailComMaterias(aluno.getEmail(), turmas);
                 break;
-            case 2: // Salvar grade em PDF
+            case 2: //salvar grade em PDF
                 JFileChooser fileChooser = new JFileChooser();
                 fileChooser.setDialogTitle("Salvar Grade de Disciplinas em PDF");
                 fileChooser.setSelectedFile(new java.io.File("grade_disciplinas.pdf"));
@@ -84,7 +84,7 @@ public class AlunoService {
         }
     }
 
-    // Método para converter Set<DiaSemana> para String
+    //metodo q converte set para String
     private static String formatarDiasSemana(Object diasSemana) {
         if (diasSemana == null) {
             return "Nao informado";
@@ -174,29 +174,29 @@ public class AlunoService {
             PdfWriter.getInstance(document, new FileOutputStream(arquivo));
             document.open();
 
-            // Título
+            //título
             Font tituloFont = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
             Paragraph titulo = new Paragraph("GRADE DE DISCIPLINAS", tituloFont);
             titulo.setAlignment(Element.ALIGN_CENTER);
             titulo.setSpacingAfter(20);
             document.add(titulo);
 
-            // Informações do aluno
+            //informações do aluno
             Font subtituloFont = new Font(Font.FontFamily.HELVETICA, 12, Font.BOLD);
             Paragraph infoAluno = new Paragraph("Aluno: " + aluno.getNome(), subtituloFont);
             infoAluno.setSpacingAfter(10);
             document.add(infoAluno);
 
-            // Tabela com as disciplinas
+            //tabela com as disciplinas
             PdfPTable tabela = new PdfPTable(5);
             tabela.setWidthPercentage(100);
             tabela.setSpacingBefore(10);
 
-            // Definir larguras das colunas
+            //larguras das colunas
             float[] largurasColunas = {15f, 30f, 20f, 15f, 20f};
             tabela.setWidths(largurasColunas);
 
-            // Cabeçalho da tabela
+            //cabeçalho da tabela
             Font headerFont = new Font(Font.FontFamily.HELVETICA, 10, Font.BOLD);
             PdfPCell header1 = new PdfPCell(new Phrase("Cod. Turma", headerFont));
             PdfPCell header2 = new PdfPCell(new Phrase("Disciplina", headerFont));
@@ -222,7 +222,7 @@ public class AlunoService {
             tabela.addCell(header4);
             tabela.addCell(header5);
 
-            // Dados das turmas
+            //dados das turmas
             Font cellFont = new Font(Font.FontFamily.HELVETICA, 9);
             for (Turma turma : turmas) {
                 PdfPCell cellCodigo = new PdfPCell(new Phrase(turma.getCodigoTurma(), cellFont));
@@ -232,7 +232,7 @@ public class AlunoService {
                 PdfPCell cellProfessor = new PdfPCell(new Phrase(
                         turma.getProfessor() != null ? turma.getProfessor().getNome() : "Nao informado", cellFont));
 
-                // Adicionar padding às células
+                //adiciona padding nas células
                 cellCodigo.setPadding(5);
                 cellDisciplina.setPadding(5);
                 cellDias.setPadding(5);
@@ -248,7 +248,7 @@ public class AlunoService {
 
             document.add(tabela);
 
-            // Rodapé
+            //rodapé
             Paragraph rodape = new Paragraph("\nTotal de disciplinas: " + turmas.size(), subtituloFont);
             rodape.setSpacingBefore(20);
             document.add(rodape);
@@ -275,7 +275,7 @@ public class AlunoService {
     }
 
     public static void visualizarNotas(Aluno aluno) {
-        // Buscar notas reais do banco de dados
+        //busca notas no banco de dados
         List<Nota> notas = NotaCRUD.getNotasDoAluno(aluno.getId());
         if (notas.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Voce ainda nao possui notas cadastradas.",
@@ -329,19 +329,18 @@ public class AlunoService {
 
         ChartPanel chartPanel = new ChartPanel(chart);
 
-        // Configurar tamanho preferido do painel do gráfico
+        //tamanho do painel do gráfico
         chartPanel.setPreferredSize(new java.awt.Dimension(700, 300));
 
         JFrame chartFrame = new JFrame("Grafico de Notas");
         chartFrame.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 
-        // Definir tamanho da janela - mais larga e menos alta
+        //tamanho da janela - mais larga e menos alta
         chartFrame.setSize(750, 350);
 
-        // Centralizar na tela
+        //centraliza na tela
         chartFrame.setLocationRelativeTo(null);
 
-        // Impedir redimensionamento se desejar
         chartFrame.setResizable(true);
 
         chartFrame.add(chartPanel);
@@ -588,17 +587,17 @@ public static void enviarEmailCancelamento(Aluno aluno, SecretariaAcademica secr
             Message mensagem = new MimeMessage(session);
             mensagem.setFrom(new InternetAddress(EMAIL_REMETENTE));
 
-            // Enviar para a secretaria -
+            //envio para a secretaria
             mensagem.setRecipients(Message.RecipientType.TO, InternetAddress.parse(secretaria.getEmail()));
 
-            // Cópia para o aluno
+            //com cópia para o aluno
             if (aluno.getEmail() != null && !aluno.getEmail().trim().isEmpty()) {
                 mensagem.setRecipients(Message.RecipientType.CC, InternetAddress.parse(aluno.getEmail()));
             }
 
             mensagem.setSubject("Solicitação de Cancelamento de Matrícula - " + aluno.getNome());
 
-            // Criando conteúdo HTML
+            //conteudo em HTML
             StringBuilder conteudoHTML = new StringBuilder();
             conteudoHTML.append("<html><body>");
             conteudoHTML.append("<h2 style='color: #d32f2f;'>SOLICITAÇÃO DE CANCELAMENTO DE MATRÍCULA</h2>");
@@ -617,7 +616,7 @@ public static void enviarEmailCancelamento(Aluno aluno, SecretariaAcademica secr
                     .append("</p>");
             conteudoHTML.append("<p><strong>Status Atual:</strong> <span style='color: #ff9800;'>EM PROCESSO DE CANCELAMENTO</span></p>");
 
-            // Listar disciplinas matriculadas
+            //lista disciplinas matriculadas
             if (aluno.getTurmas() != null && !aluno.getTurmas().isEmpty()) {
                 conteudoHTML.append("<h3>Disciplinas Matriculadas:</h3>");
                 conteudoHTML.append("<ul>");

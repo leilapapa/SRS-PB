@@ -18,7 +18,7 @@ public final class Disciplina {
         this.preRequisitos = new ArrayList<>();
     }
 
-    //donstrutor adicional para carregar do banco de dados
+    //construtor adicional para carregar do banco de dados
     public Disciplina(int id, String nome, int vagas, Curso curso) {
         this.id = id;
         this.nome = nome;

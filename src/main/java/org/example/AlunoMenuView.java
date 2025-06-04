@@ -32,7 +32,7 @@ public class AlunoMenuView {
 
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 20)));
 
-        // Criar área de dados do aluno
+        //área de dados do aluno
         dadosAluno = new JTextArea();
         atualizarDadosAluno(aluno);
 
@@ -53,7 +53,7 @@ public class AlunoMenuView {
 
         painelPrincipal.add(Box.createRigidArea(new Dimension(0, 30)));
 
-        // Painel para botões
+        //painel para botões
         JPanel painelBotoes = new JPanel();
         painelBotoes.setLayout(new GridLayout(3, 1, 10, 10));
         painelBotoes.setBorder(new EmptyBorder(10, 50, 10, 50));
@@ -86,7 +86,7 @@ public class AlunoMenuView {
         frame.setVisible(true);
     }
 
-    //   dados do aluno na interface
+    //dados do aluno na interface
     private static void atualizarDadosAluno(Aluno aluno) {
         if (dadosAluno != null) {
             dadosAluno.setText(
@@ -99,7 +99,7 @@ public class AlunoMenuView {
         }
     }
 
-    //  cancelar matrícula
+    //cancelar matrícula
     private static void cancelarMatriculaComCallback(Aluno aluno, SecretariaAcademica secretaria) {
         int confirmacao = JOptionPane.showConfirmDialog(
                 frame,
@@ -126,10 +126,10 @@ public class AlunoMenuView {
 
                 aluno.solicitarCancelamento(secretaria);
 
-                // 5. Enviar email
+                //enviar email
                 AlunoService.enviarEmailCancelamento(aluno, secretaria);
 
-                // 6. Mostrar confirmação
+                //mostrar confirmação
                 JOptionPane.showMessageDialog(frame,
                         "Solicitacao de cancelamento processada com sucesso!\n\n" +
                                 "Status alterado para: Em processo de cancelamento\n" +

@@ -26,26 +26,26 @@ public class Main {
             return;
         }
 
-        //Insere dados usando a secretaria autenticada
+        //insere dados usando a secretaria autenticada
         InserirDadosIniciais.dadosIniciais(secretaria);
 
         SecretariaAcademicaCRUD.listarSecretarias();
 
-        // Lista os cursos
+        //lista os cursos
         List<Curso> cursos = CursoCRUD.readAll();
         System.out.println("Cursos cadastrados:");
         for (Curso curso : cursos) {
             System.out.println("- " + curso.getNome() + " (" + curso.getCodigo() + ")");
         }
 
-        // Lista disciplinas
+        //lista disciplinas
         List<Disciplina> disciplinas = DisciplinaCRUD.readAll();
         System.out.println("\nDisciplinas cadastradas:");
         for (Disciplina d : disciplinas) {
             System.out.println("- " + d.getNome() + " | Curso: " + d.getCurso().getNome());
         }
 
-        // Lista turmas
+        //lista turmas
         List<Turma> turmas = TurmaCRUD.readAll();
         System.out.println("\nTurmas cadastradas:");
         for (Turma turma : turmas) {
@@ -55,7 +55,7 @@ public class Main {
                     " | Horário: " + turma.getHorario());
         }
 
-        // Lista alunos
+        //lista alunos
         List<Aluno> alunos = AlunoCRUD.readAll();
         System.out.println("\n📋 Lista de alunos cadastrados:");
         for (Aluno a : alunos) {

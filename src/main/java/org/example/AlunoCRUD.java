@@ -26,7 +26,7 @@ public class AlunoCRUD {
                         rs.getString("status")
                 );
 
-                // Carrega as turmas do aluno
+                //carrega as turmas do aluno
                 List<Turma> turmas = TurmaCRUD.buscarTurmasDoAluno(aluno.getId());
                 aluno.setTurmas(turmas);
 

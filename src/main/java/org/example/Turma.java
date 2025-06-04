@@ -19,7 +19,7 @@ public class Turma {
         this.alunos = new ArrayList<>();
     }
 
-    //Construtor adicional para carregar do banco de dados
+    //construtor adicional para carregar do banco de dados
     public Turma(int id, String codigoTurma, Set<DiaSemana> diasSemana, String horario, Professor professor, Disciplina disciplina) {
         this.id = id;
         this.codigoTurma = codigoTurma;
